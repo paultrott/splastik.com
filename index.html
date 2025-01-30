@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(141,219,253);
+      overflow: hidden;
+    }
+
+    .dot-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      grid-template-columns: repeat(20, 1fr);
+      z-index: -1;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background-color: rgb(131, 208, 241);
+      border-radius: 50%;
+      margin: auto;
+      animation: pulseDot 4s infinite ease-in-out;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% {
+        transform: scale(0.5);
+      }
+      50% {
+        transform: scale(2.5);
+      }
+    }
+
+    .container {
+      /* background: rgb(141,219,253); */
+      padding: 20px;
+      /* border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="dot-grid">
+    <!-- JavaScript will populate the dots -->
+  </div>
+  <div class="container">
+    <img src="./splastik-logo.svg" alt="Placeholder Image">
+  </div>
+
+  <script>
+    const grid = document.querySelector('.dot-grid');
+    // Create 400 dots (20x20 grid)
+    for (let i = 0; i < 400; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      // Add slight random delay to each dot for a wave effect
+      dot.style.animationDelay = `${Math.random() * 2}s`;
+      grid.appendChild(dot);
+    }
+  </script>
+</body>
+</html>
