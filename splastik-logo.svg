@@ -8,8 +8,30 @@
    version="1.1"
    id="svg1"
    xml:space="preserve"
+   sodipodi:docname="splastik-logo.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="2.1254932"
+     inkscape:cx="597.74362"
+     inkscape:cy="328.15913"
+     inkscape:window-width="2560"
+     inkscape:window-height="1369"
+     inkscape:window-x="1432"
+     inkscape:window-y="476"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g11" /><defs
      id="defs1" /><g
      id="layer3"
      style="display:inline"
@@ -65,14 +87,4 @@
          id="path21" /><path
          d="m 104.2963,206.86769 c 0.49904,0 0.78628,0.01 1.24759,0.006 l 0.19035,3.16025 c -0.88718,0.72082 -2.23653,1.29992 -3.34548,1.29992 -2.0331,0 -3.160539,-0.73931 -3.382328,-2.21792 -0.924135,1.47861 -2.28261,2.21792 -4.075426,2.21792 -3.031155,0 -4.546734,-1.30303 -4.546734,-3.90909 0,-0.44358 0.04618,-0.93337 0.138621,-1.46937 l 0.582197,-3.2437 c 0.295725,-1.66344 0.970344,-2.98495 2.023849,-3.96454 1.071998,-0.99805 2.4582,-1.49709 4.158604,-1.49709 1.718889,0 2.883297,0.39738 3.493217,1.19213 l 0.13862,-0.83172 h 4.21405 l -1.53017,8.20354 c -0.0185,0.11089 -0.0184,0.22218 -0.0277,0.33268 -0.0264,0.31243 0.0178,0.72083 0.7208,0.72083 z m -8.949489,-1.52205 c -0.03698,0.16634 -0.05544,0.39737 -0.05544,0.69309 0,0.29573 0.138614,0.59145 0.415854,0.88718 0.27724,0.27723 0.739304,0.41585 1.386202,0.41585 0.665374,0 1.238336,-0.25875 1.718883,-0.77626 l 0.831719,-4.65764 c -0.203306,-0.46206 -0.683856,-0.69309 -1.441643,-0.69309 -1.42317,0 -2.254883,0.68385 -2.495161,2.05157 z"
          style="fill:#312800;fill-opacity:1;stroke:none;stroke-width:1.15517"
-         id="path22" /><text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.0847px;font-family:'Alumni Sans';-inkscape-font-specification:'Alumni Sans, @wght=300';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;font-variation-settings:'wght' 300;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#312800;fill-opacity:1;stroke:none;stroke-width:2.84746"
-         x="90.12442"
-         y="225.99503"
-         id="text22"
-         transform="skewX(-10.107702)"><tspan
-           id="tspan22"
-           x="90.12442"
-           y="225.99503"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.0847px;font-family:'Alumni Sans';-inkscape-font-specification:'Alumni Sans, @wght=300';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;font-variation-settings:'wght' 300;fill:#312800;fill-opacity:1;stroke-width:2.84746">SPECIAL PLASTIC KITS</tspan></text></g></g></svg>
+         id="path22" /></g></g></svg>
