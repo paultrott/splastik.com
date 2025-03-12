@@ -51,6 +51,8 @@
     /* Global variables */
     :root {
       --grid-cell-size: 20px;
+      --grid-min-cell-size: 10px;
+      --grid-max-cell-size: 30px;
       --grid-color-thin: rgba(255, 255, 255, 0.1);
       --grid-color-thick: rgba(255, 255, 255, 0.2);
       --background-color: #333;
@@ -95,6 +97,7 @@
         calc(var(--grid-cell-size) * 10) calc(var(--grid-cell-size) * 10),
         calc(var(--grid-cell-size) * 10) calc(var(--grid-cell-size) * 10);
       z-index: 0;
+      transition: background-size 0.1s linear;
     }
 
     .content-container {
@@ -267,6 +270,14 @@
 document.addEventListener('DOMContentLoaded', function() {
   const contentWrapper = document.querySelector('.content-wrapper');
   const content = document.querySelector('.content-container');
+  const gridBackground = document.querySelector('.grid-background');
+  
+  // Grid animation variables
+  const minGridSize = 10; // Minimum grid cell size
+  const maxGridSize = 30; // Maximum grid cell size
+  let gridSize = 20; // Initial grid cell size
+  let gridIncreasing = true; // Direction of animation
+  let animationSpeed = 0.003; // Speed of animation (pixels per frame)
   
   // Function to update grid size based on content
   function updateGridSize() {
@@ -314,6 +325,40 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   });
+  
+  // Function to animate the grid size
+  function animateGrid() {
+    // Update direction if we hit a boundary
+    if (gridSize >= maxGridSize) {
+      gridIncreasing = false;
+    } else if (gridSize <= minGridSize) {
+      gridIncreasing = true;
+    }
+    
+    // Update the grid size
+    if (gridIncreasing) {
+      gridSize += animationSpeed;
+    } else {
+      gridSize -= animationSpeed;
+    }
+    
+    // Apply the new grid size
+    document.documentElement.style.setProperty('--grid-cell-size', `${gridSize}px`);
+    
+    // Update the grid background size
+    gridBackground.style.backgroundSize = `
+      ${gridSize}px ${gridSize}px,
+      ${gridSize}px ${gridSize}px,
+      ${gridSize * 10}px ${gridSize * 10}px,
+      ${gridSize * 10}px ${gridSize * 10}px
+    `;
+    
+    // Request the next animation frame
+    requestAnimationFrame(animateGrid);
+  }
+  
+  // Start the grid animation
+  animateGrid();
 });
   </script>
 </body>
