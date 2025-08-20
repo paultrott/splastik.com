@@ -1,365 +1,1229 @@
 <!DOCTYPE html>
-<!--               
-
-                                                    /
-                                                  .7
-                                       \       , //
-                                       |\.--._/|//
-                                      /\ ) ) ).'/
-                                     /(  \  // /
-                                    /(   J`((_/ \
-                                   / ) | _\     /
-                                  /|)  \  eJ    L
-                                 |  \ L \   L   L
-                                /  \  J  `. J   L
-                                |  )   L   \/   \
-                               /  \    J   (\   /
-             _....___         |  \      \   \```
-      ,.._.-'        '''--...-||\     -. \   \
-    .'.=.'                    `         `.\ [ Y
-   /   /                                  \]  J
-  Y / Y                                    Y   L
-  | | |          \                         |   L
-  | | |           Y                        A  J
-  |   I           |                       /I\ /
-  |    \          I             \        ( |]/|
-  J     \         /._           /        -tI/ |
-   L     )       /   /'-------'J           `'-:.
-   J   .'      ,'  ,' ,     \   `'-.__          \
-    \ T      ,'  ,'   )\    /|        ';'---7   /
-     \|    ,'L  Y...-' / _.' /         \   /   /
-      J   Y  |  J    .'-'   /         ,--.(   /
-       L  |  J   L -'     .'         /  |    /\
-       |  J.  L  J     .-;.-/       |    \ .' /
-       J   L`-J   L____,.-'`        |  _.-'   |
-        L  J   L  J                  ``  J    |
-        J   L  |   L                     J    |
-         L  J  L    \                    L    \
-         |   L  ) _.'\                    ) _.'\
-         L    \('`    \                  ('`    \
-          ) _.'\`-....'                   `-....'
-         ('`    \
-          `-.___/   SPK: Special Plastic Kits
--->
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Splastik - Special Plastic Kits</title>
+  <!-- Document Meta -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Saul Plastik – Diffusion Designer | Editorial & Advertising Visuals</title>
+  <meta name="description" content="Freelance Diffusion Designer crafting editorial and advertising visuals: concept to production - AI breadth + human craft. Fast, story-led, production-ready imagery." />
+  <meta name="theme-color" content="#151515" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Saul Plastik – Diffusion Designer" />
+  <meta property="og:description" content="Story-led editorial & advertising visuals. AI for exploration, hand & eye for taste, polish, and control." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://splastik.com/" />
+  <meta property="og:image" content="https://splastik.com/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Saul Plastik – Diffusion Designer" />
+  <meta name="twitter:description" content="Editorial covers, ad concepts, sequenced feature imagery - fast, intentional, production ready." />
+  <meta name="twitter:image" content="https://splastik.com/og-image.jpg" />
+
+  <!-- Favicons (update paths as needed) -->
+  <link rel="icon" sizes="16x16" type="image/png" href="favicon-16.png" />
+  <link rel="icon" sizes="32x32" type="image/png" href="favicon-32.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Saul Plastik",
+    "jobTitle": "Diffusion Designer",
+    "description": "Freelance Diffusion Designer producing editorial and advertising visuals using AI + traditional tooling.",
+    "url": "https://splastik.com/",
+    "image": "https://splastik.com/profile.jpg",
+    "knowsAbout": ["Editorial illustration", "Advertising visuals", "Stable Diffusion", "Photoshop", "After Effects", "Blender", "Krita"],
+    "worksFor": { "@type": "Organization", "name": "Independent" }
+  }
+  </script>
+
   <style>
-    /* Global variables */
-    :root {
-      --grid-cell-size: 20px;
-      --grid-min-cell-size: 10px;
-      --grid-max-cell-size: 30px;
-      --grid-color-thin: rgba(255, 255, 255, 0.1);
-      --grid-color-thick: rgba(255, 255, 255, 0.2);
-      --background-color: #333;
-    }
+/* === 1. Foundations ====================================================== */
+:root {
+  /* Palette */
+  --color-bg: #111418;
+  --color-bg-alt: #1b2026;
+  --color-surface: #212830;
+  --color-accent: #ffe449;
+  --color-accent-alt: #ffb800;
+  --color-text: #f5f7fa;
+  --color-text-muted: #b5c1cc;
+  --color-focus: #94c8ff;
 
-    body, html {
-        margin: 0;
-        padding: 0;
+  /* Typography & Rhythm */
+  --font-stack: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  --line-max: 66ch;
 
-        height: 100%;
-        background-color: var(--background-color);
-        color: white;
-        /* setup roboto font and related */
-        font-family: 'Roboto', sans-serif;
-    }
+  /* Motion & Shape */
+  --transition: 320ms ease;
+  --radius-sm: 4px;
+  --radius-md: 10px;
 
-    .content-wrapper {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  /* Elevation */
+  --shadow-elev: 0 4px 12px -2px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.04);
 
-    .grid-background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--background-color);
-      background-image:
-        /* Thin lines every 10 units */
-        linear-gradient(to right, var(--grid-color-thin) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-color-thin) 1px, transparent 1px),
-        /* Thick lines every 100 units */
-        linear-gradient(to right, var(--grid-color-thick) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-color-thick) 1px, transparent 1px);
-      background-size:
-        var(--grid-cell-size) var(--grid-cell-size),
-        var(--grid-cell-size) var(--grid-cell-size),
-        calc(var(--grid-cell-size) * 10) calc(var(--grid-cell-size) * 10),
-        calc(var(--grid-cell-size) * 10) calc(var(--grid-cell-size) * 10);
-      z-index: 0;
-      transition: background-size 0.1s linear;
-    }
+  /* Card System */
+  --card-bg: rgba(255,255,255,0.03);
+  --card-bg-hover: rgba(255,255,255,0.07);
+  --card-border: rgba(255,255,255,0.08);
+  --card-border-hover: rgba(255,255,255,0.25);
+  --card-radius: 14px;
+  --card-shadow: 0 2px 6px -1px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
 
-    .content-container {
-      position: relative;
-      z-index: 1;
-      padding: 20px;
-      max-width: 400px;
-      margin: 0 auto; /* Center horizontally */
-      /* background-color: #333333c5; */
-      display: flex;
-      flex-direction: column;
-      align-items: center; /* Center children horizontally */
-    }
+  /* Tag System */
+  --tag-font-size: 0.625rem;
+  --tag-weight: 600;
+  --tag-editorial: #3d7dff;
+  --tag-advertising: #ff8a3d;
+  --tag-commission: #b347ff;
+  --tag-animation: #15b8a6;
+  --tag-illustration: #ffcd2e;
+  --tag-training: #4caf50;
+}
 
-    #header {
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: #f7f9fc;
+    --color-bg-alt: #ffffff;
+    --color-surface: #ffffff;
+    --color-text: #1d242b;
+    --color-text-muted: #536271;
+    --color-focus: #004b9a;
+    --shadow-elev: 0 3px 10px -2px rgba(0,0,0,0.15),0 0 0 1px rgba(0,0,0,0.06);
+
+    --card-bg: rgba(0,0,0,0.03);
+    --card-bg-hover: rgba(0,0,0,0.06);
+    --card-border: rgba(0,0,0,0.08);
+    --card-border-hover: rgba(0,0,0,0.30);
+    --card-shadow: 0 2px 6px -1px rgba(0,0,0,0.18),0 0 0 1px rgba(0,0,0,0.04);
+  }
+}
+
+* { box-sizing: border-box; }
+html:focus-within { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-stack);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
+/* === 2. Accessibility / Utility ========================================= */
+.skip-link {
+  position: absolute;
+  top: 0; left: 0;
+  transform: translateY(-120%);
+  background: var(--color-accent);
+  color: #000;
+  padding: 0.65rem 1rem;
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  transition: transform var(--transition);
+  z-index: 1000;
+}
+.skip-link:focus { outline: none; transform: translateY(0); }
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  } */
+}
+
+/* === 3. Header / Hero ==================================================== */
+header[role="banner"] {
+  position: relative;
+  padding: clamp(2rem, 5vw, 4rem) 1.5rem 2.5rem;
+  overflow: hidden;
+}
+
+header[role="banner"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(145deg, rgba(10,12,15,0.78), rgba(10,12,15,0.35)),
+    url("feature_0.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  transform: scale(1.02);
+}
+
+@media (min-width: 1400px) {
+  header[role="banner"]::before {
+    background-image:
+      linear-gradient(145deg, rgba(10,12,15,0.72), rgba(10,12,15,0.28)),
+      url("feature_0.png");
+  }
+}
+
+@media (max-width: 780px), (hover: none) and (pointer: coarse) {
+  header[role="banner"]::before { background-attachment: scroll; }
+}
+
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.branding {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.branding img {
+  width: clamp(60px, 12vw, 100px);
+  height: auto;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+
+.branding .logo {
+  width: clamp(120px, 24vw, 200px);
+  height: clamp(120px, 24vw, 200px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #000;
+  overflow: hidden;
+}
+
+/* === New: Logo stack & caption ========================================== */
+.logo-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.logo-caption {
+  margin: 0.4rem 0 0;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-align: center;
+  user-select: none;
+}
+
+/* Slightly larger on very large screens */
+@media (min-width: 1200px) {
+  .logo-caption {
+    font-size: 0.7rem;
+  }
+}
+
+h1 {
+  font-size: clamp(1.95rem, 5.2vw, 3.25rem);
+  line-height: 1.08;
+  margin: 0;
+  letter-spacing: -0.5px;
+  font-weight: 650;
+  max-width: 20ch;
+}
+
+.tagline {
+  font-size: clamp(1rem, 1.3vw + 0.6rem, 1.35rem);
+  color: var(--color-accent);
+  margin: 0.75rem 0 0;
+  max-width: 50ch;
+}
+
+/* === 4. Capability Blocks =============================================== */
+.value-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  margin-top: 2rem;
+}
+.value-item {
+  background: var(--color-surface);
+  padding: 1rem 1.1rem 1.15rem;
+  border-radius: var(--radius-md);
+  position: relative;
+  box-shadow: var(--shadow-elev);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.value-item h2 {
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+.value-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* === 5. Nav ============================================================= */
+nav[aria-label="Primary"] {
+  margin-top: 1.5rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  margin: 20px 0;
+  gap: 0.75rem;
+}
+nav[aria-label="Primary"] a {
+  --btn-bg: var(--color-surface);
+  --btn-color: var(--color-text);
+  text-decoration: none;
+  padding: 0.75rem 1rem 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  border: 1px solid var(--color-surface);
+  color: var(--btn-color);
+  background: var(--btn-bg);
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+  transition: background var(--transition),
+              border-color var(--transition),
+              color var(--transition),
+              transform var(--transition);
+}
+nav[aria-label="Primary"] a:hover,
+nav[aria-label="Primary"] a:focus-visible {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #1d1d10;
+}
+nav[aria-label="Primary"] a:active { transform: translateY(1px); }
+
+.cta-accent {
+  --btn-bg: var(--color-accent);
+  --btn-color: #1a1603;
+  border-color: var(--color-accent);
+}
+.cta-accent:hover,
+.cta-accent:focus-visible {
+  background: var(--color-accent-alt);
+  border-color: var(--color-accent-alt);
+  color: #1a1603;
+}
+
+/* === 6. Layout Containers =============================================== */
+main {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+footer {
+  padding: 2rem 1.5rem;
+  font-size: 0.75rem;
   text-align: center;
+  color: var(--color-text-muted);
 }
-.header-image, .header-blurb {
-  flex: 1 1 50%;
+footer a { color: inherit; }
+
+/* === 7. Portfolio Cards ================================================= */
+#portfolio-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+@media (min-width: 1400px) {
+  #portfolio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
 }
 
-.header-blurb {
-  text-align: left;
+.project-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  padding: 0.85rem 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: border-color var(--transition),
+              background var(--transition),
+              box-shadow var(--transition);
+  isolation: isolate;
+}
+.project-card:hover,
+.project-card:focus-within {
+  background: var(--card-bg-hover);
+  border-color: var(--card-border-hover);
+  box-shadow: 0 6px 14px -4px rgba(0,0,0,0.55),
+              0 0 0 1px var(--card-border-hover);
 }
 
-@media (max-width: 768px) {
-  #header {
+.project-card figure {
+  margin: -0.85rem -0.85rem 0.5rem;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+}
+
+.project-card figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1);
+  transform-origin: center;
+  transition:
+    transform 1200ms cubic-bezier(.22,.65,.28,1),
+    filter 800ms ease;
+  will-change: transform, filter;
+  filter: saturate(1.02) brightness(0.96);
+}
+.project-card:hover figure img,
+.project-card:focus-within figure img {
+  transform: scale(1.065);
+  filter: saturate(1.12) brightness(1);
+}
+
+.project-card h3 {
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.2;
+  font-weight: 600;
+}
+.project-card p {
+  font-size: 0.75rem;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* Tag list */
+.role-tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.role-tags .tag {
+  /* --tag-bg: #444; */
+  --tag-color: #fff;
+  font-size: var(--tag-font-size);
+  font-weight: var(--tag-weight);
+  letter-spacing: 0.4px;
+  padding: 0.35rem;
+  line-height: 1;
+  border-radius: 999px;
+  background: var(--tag-bg);
+  color: var(--tag-color);
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Tag variants */
+.tag--editorial     { --tag-bg: color-mix(in srgb, var(--tag-editorial) 75%, #000); }
+.tag--advertising   { --tag-bg: color-mix(in srgb, var(--tag-advertising) 78%, #000); }
+.tag--commission    { --tag-bg: color-mix(in srgb, var(--tag-commission) 80%, #000); }
+.tag--animation     { --tag-bg: color-mix(in srgb, var(--tag-animation) 78%, #000); }
+.tag--illustration  { --tag-bg: color-mix(in srgb, var(--tag-illustration) 72%, #000); color: #2e2500; }
+.tag--training      { --tag-bg: color-mix(in srgb, var(--tag-training) 75%, #000); }
+
+/* Project link */
+.project-card a.project-link {
+  margin-top: auto;
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4ch;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.35px;
+  text-decoration: none;
+  color: var(--color-accent);
+  padding: 0.4rem 0.55rem 0.38rem;
+  border-radius: 6px;
+  position: relative;
+  border: 1px solid transparent;
+  transition: background var(--transition),
+              color var(--transition),
+              border-color var(--transition),
+              transform var(--transition);
+}
+.project-card a.project-link:hover,
+.project-card a.project-link:focus-visible {
+  background: rgba(255,228,73,0.15);
+  border-color: var(--color-accent);
+  color: #ffe449;
+}
+.project-card a.project-link:active { transform: translateY(1px); }
+
+/* Make entire card clickable via overlay anchor (still keep explicit link) */
+.project-card .card-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.project-card a.project-link,
+.project-card h3,
+.project-card p,
+.project-card .role-tags {
+  position: relative;
+  z-index: 1;
+}
+
+/* Focus outline on any internal focus */
+.project-card:focus-within {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Mobile branding layout: center logo + text */
+@media (max-width: 640px) {
+  .branding {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
 
-  .header-blurb {
-    /* text-align: center; */
+  .branding .logo {
+    margin-inline: auto;
+  }
+
+  .branding > div {
+    text-align: center;
   }
 }
 
-    #content {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
+/* === Refined Process Timeline =========================================== */
+#process {
+  margin-top: clamp(3.5rem, 7vw, 5.5rem);
+  /* max-width: 1200px; */
+  position: relative;
+}
 
-    .card {
-        flex: 1 1 calc(33.333% - 40px); /* Adjust the percentage to control the number of cards per row */
-        box-sizing: border-box;
-        background-color: #444;
-        padding: 20px;
-        text-align: left; /* Left align title and description */
-        min-width: 200px;
-        transition: background-color 0.75s, color 0.75s, transform 0.3s, opacity 2s;
-        cursor: pointer;
-        border-radius: 3px;
-    }
+#process-heading {
+  /* font-size: clamp(1.55rem, 3.4vw, 2.35rem); */
+  line-height: 1.12;
+  letter-spacing: -0.5px;
+  margin: 0 0 0.55rem;
+  font-weight: 650;
+}
 
-    .card img {
-      width: calc(100% + 40px); /* Fill the entire width of the card */
-      margin: -20px -20px 0 -20px; /* Remove margin on left, top, and right */
-      height: auto;
-      border-radius: 3px 3px 0px 0px;
-    }
+.process-tagline {
+  margin: 0 0 2rem;
+  font-size: clamp(0.85rem, 0.4vw + 0.8rem, 0.98rem);
+  line-height: 1.55;
+  color: var(--color-text-muted);
+  max-width: 62ch;
+}
 
-    .card h3, .card p {
-      margin: 10px 0 0 0; /* Add margin to separate title and description */
-    }
+.process-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(1.6rem, 2.4vw, 2.6rem);
+  counter-reset: proc;
+  position: relative;
+}
 
-    .card:hover {
-        background-color: yellow;
-        color: black;
-        transition: background-color 0.25s, color 0.25s;
-        }
-    
-    #footer{
-        margin: 20px 0px;
-        text-align: center;
-        background-color: var(--background-color);
-        padding: 0px 10px;
-        text-align: left;
-        font-size: 16px;
-        line-height: 1.4em;
-        }
-    .header-blurb {
-        font-size: 18px;
-        line-height: 1.4em;
-    }
+/* Vertical spine (base) */
+.process-timeline::before {
+  content: "";
+  position: absolute;
+  left: 2.4rem;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
+  border-radius: 2px;
+  pointer-events: none;
+}
 
-    #content, #footer {
-      display: none;
-    }
+.process-step {
+  counter-increment: proc;
+  position: relative;
+  padding: 1.1rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015))
+    var(--color-surface);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-elev);
+  isolation: isolate;
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+  overflow: hidden;
+}
 
-    .content-container{
-      background-color: #ffe449ff !important;
-      color: #312800ff;
-      border-radius: 85px 52.5px 32.5px 20px;
-      /* Create a drop shadow with the light coming from the top left*/
-      box-shadow: 10px 10px 5px 0px rgb(22, 22, 2, 0.15);
-    }
+/* Single disc with step number (replaces former icon + separate number badge) */
+.process-step::before {
+  content: none !important;
+}
+
+.process-num {
+  --disc-size: 2.65rem;
+  width: var(--disc-size);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), rgba(255,255,255,0) 62%),
+    linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px -2px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.35);
+  backdrop-filter: blur(4px) saturate(150%);
+  -webkit-backdrop-filter: blur(4px) saturate(150%);
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.process-num::before {
+  content: counter(proc);
+}
+
+.process-head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 3rem; /* Ensures vertical centering presence even if title wraps */
+  position: relative;
+}
+
+.process-title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+}
+
+.process-body {
+  margin-top: 0.75rem;
+  display: block;
+}
+
+/* Optional subtle separator line between head and body */
+.process-body::before {
+  content: "";
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
+  margin: 0 0 0.85rem;
+  border-radius: 1px;
+}
+
+/* Lists inside body */
+.process-detail,
+.process-detail ul {
+  margin: 0 0 0.65rem 1.15rem; /* Keep nested bullets indented slightly */
+  padding: 0;
+}
+
+.process-detail li {
+  margin: 0 0 0.4rem;
+  line-height: 1.4;
+}
+
+.process-note {
+  margin: 0.25rem 0 0;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* Light theme adjustments */
+@media (prefers-color-scheme: light) {
+  .process-num {
+    background:
+      radial-gradient(circle at 30% 30%, rgba(0,0,0,0.15), rgba(0,0,0,0) 62%),
+      linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02));
+    border-color: rgba(0,0,0,0.25);
+    color: #1d242b;
+    box-shadow: 0 2px 5px -2px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,0,0,0.25);
+  }
+  .process-body::before {
+    background: linear-gradient(to right, rgba(0,0,0,0.18), rgba(0,0,0,0.05));
+  }
+}
+
+/* Wide screens: no special ::after adjustments needed anymore */
+@media (min-width: 900px) {
+
+  /* Parent just stacks rows and carries the central spine */
+  .process-timeline {
+    /* keep it a block/grid with single column; gap purely vertical */
+    display: grid;
+    gap: 3.25rem;
+    position: relative;
+  }
+
+  .process-timeline::before {
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.25),
+      rgba(255,255,255,0.07)
+    );
+  }
+
+  /* Each item owns its 2-column pairing */
+  .process-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 3.25rem;
+    align-items: stretch;
+    position: relative;
+  }
+
+  /* Remove mobile top spacing; vertical rhythm handled by parent gap */
+  .process-item + .process-item { margin-top: 0; }
+
+  /* Alternation: odd = card left, image right */
+  .process-item:nth-child(odd) .process-step  { order: 1; }
+  .process-item:nth-child(odd) .process-media { order: 2; }
+
+  /* Even = image left, card right */
+  .process-item:nth-child(even) .process-step  { order: 2; }
+  .process-item:nth-child(even) .process-media { order: 1; }
+
+  /* Full-row vertical alignment */
+  .process-step,
+  .process-media {
+    height: 100%;
+    margin: 0;
+  }
+
+  .process-step {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+
+  .process-step::before {
+    left: 1.15rem; /* slight inset for balance */
+  }
+
+  .process-media {
+    margin: 0;
+  }
+}
+
+/* Reveal animation (unchanged logic – adjusted distance) */
+@media (prefers-reduced-motion: no-preference) {
+  .process-step {
+    opacity: 0;
+    transform: translateY(26px);
+    animation: proc-fade 780ms cubic-bezier(.22,.65,.28,1) forwards;
+  }
+  .process-step:nth-child(2) { animation-delay: 60ms; }
+  .process-step:nth-child(3) { animation-delay: 120ms; }
+  .process-step:nth-child(4) { animation-delay: 180ms; }
+  .process-step:nth-child(5) { animation-delay: 240ms; }
+  .process-step:nth-child(6) { animation-delay: 300ms; }
+  @keyframes proc-fade {
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Light theme overrides */
+@media (prefers-color-scheme: light) {
+  .process-step {
+    border-color: rgba(0,0,0,0.08);
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.005))
+      var(--color-surface);
+  }
+  .process-step:hover,
+  .process-step:focus-within {
+    border-color: rgba(0,0,0,0.28);
+  }
+  .process-timeline::before {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.08));
+  }
+}
+
+/* === Process: dual-column media layout enhancements ===================== */
+
+/* Base media styling (mobile-first: stacked under the step card) */
+.process-item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.process-item + .process-item {
+  margin-top: clamp(1.6rem, 2.4vw, 2.6rem);
+}
+
+.process-step {
+  /* Remove width/alt layout artifacts from previous alternating approach */
+  max-width: 100%;
+  margin: 0 !important;
+}
+
+.process-media {
+  margin: 0.75rem 0 0;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #0e1215;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 2px 6px -2px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04);
+  display: flex;
+}
+
+.process-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.05) brightness(0.95);
+  transition: transform 1200ms cubic-bezier(.22,.65,.28,1),
+             filter 900ms ease;
+  transform: scale(1);
+}
+
+.process-item:hover .process-media img,
+.process-item:focus-within .process-media img {
+  transform: scale(1.06);
+  filter: saturate(1.15) brightness(1);
+}
+
+.process-media figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 0.4rem 0.55rem 0.5rem;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+  color: var(--color-text-muted);
+  pointer-events: none;
+  mix-blend-mode: normal;
+}
+
+/* Larger screens: two-column alternating layout with central spine */
+@media (min-width: 900px) {
+
+  /* Parent just stacks rows and carries the central spine */
+  .process-timeline {
+    /* keep it a block/grid with single column; gap purely vertical */
+    display: grid;
+    gap: 3.25rem;
+    position: relative;
+  }
+
+  .process-timeline::before {
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.25),
+      rgba(255,255,255,0.07)
+    );
+  }
+
+  /* Each item owns its 2-column pairing */
+  .process-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 3.25rem;
+    align-items: stretch;
+    position: relative;
+  }
+
+  /* Remove mobile top spacing; vertical rhythm handled by parent gap */
+  .process-item + .process-item { margin-top: 0; }
+
+  /* Alternation: odd = card left, image right */
+  .process-item:nth-child(odd) .process-step  { order: 1; }
+  .process-item:nth-child(odd) .process-media { order: 2; }
+
+  /* Even = image left, card right */
+  .process-item:nth-child(even) .process-step  { order: 2; }
+  .process-item:nth-child(even) .process-media { order: 1; }
+
+  /* Full-row vertical alignment */
+  .process-step,
+  .process-media {
+    height: 100%;
+    margin: 0;
+  }
+
+  .process-step {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+
+  .process-step::before {
+    left: 1.15rem; /* slight inset for balance */
+  }
+
+  .process-media {
+    margin: 0;
+  }
+}
+
+/* Light theme tweak for media border */
+@media (prefers-color-scheme: light) {
+  .process-media {
+    border-color: rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px -2px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.05);
+  }
+}
   </style>
 </head>
 <body>
-  <div class="content-wrapper">
-    <div class="grid-background"></div>
-    <div class="content-container">
-        <section id="header">
-            <div class="header-image"><img src="splastik-logo.svg" alt="Logo" style="width: 79%; position:relative; top: 20px;"></div>
-            <div class="header-blurb" style="display: none;">
-              <p>3D printable permission slips to build your own aviation adventure.</p>
-            </div> 
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header role="banner">
+    <div class="header-inner">
+      <div class="branding">
+        <div class="logo-stack">
+          <img class="logo" src="SaulPlastik.png" alt="Splastik logo" decoding="async" />
+          <p class="logo-caption">Saul Plastik</p>
+        </div>
+        <div>
+          <h1>Diffusion Designer for Editorial & Advertising</h1>
+          <p class="tagline">
+            AI for breadth - hand & eye for taste. Fast, story-led imagery from concept scribbles to production‑ready layered files.
+          </p>
+        </div>
+      </div>
+
+      <div class="value-grid" aria-label="Capabilities summary">
+        <section class="value-item" aria-labelledby="cap-editorial">
+          <h2 id="cap-editorial">Editorial</h2>
+          <p>Sequenced, narrative-supporting visuals that carry rhythm - not decoration for decoration’s sake.</p>
         </section>
-        <section id="content">
-            <!-- Card Grid -->
-            <div class="card">
-                <img src="https://placehold.co/200x200" alt="Placeholder Image">
-                <h3>Card Title</h3>
-                <p>Card Description</p>
-            </div>
-            <div class="card">
-                <img src="https://placehold.co/200x200" alt="Placeholder Image">
-                <h3>Card Title</h3>
-                <p>Card Description</p>
-            </div>
-            <div class="card">
-                <img src="https://placehold.co/200x200" alt="Placeholder Image">
-                <h3>Card Title</h3>
-                <p>Card Description</p>
-            </div>
-            <div class="card">
-                <img src="https://placehold.co/200x200" alt="Placeholder Image">
-                <h3>Card Title</h3>
-                <p>Card Description</p>
-            </div>
-            <div class="card">
-                <img src="https://placehold.co/200x200" alt="Placeholder Image">
-                <h3>Card Title</h3>
-                <p>Card Description</p>
-            </div>
-            <div class="card">
-                <img src="https://placehold.co/200x200" alt="Placeholder Image">
-                <h3>Card Title</h3>
-                <p>Card Description</p>
-            </div>
-            <div class="card">
-                <img src="https://placehold.co/200x200" alt="Placeholder Image">
-                <h3>Card Title</h3>
-                <p>Card Description</p>
-            </div>
-            <div class="card">
-                <img src="https://placehold.co/200x200" alt="Placeholder Image">
-                <h3>Card Title</h3>
-                <p>Card Description</p>
-            </div>
-            <div class="card">
-                <img src="https://placehold.co/200x200" alt="Placeholder Image">
-                <h3>Card Title</h3>
-                <p>Card Description</p>
-            </div>
+        <section class="value-item" aria-labelledby="cap-advertising">
+          <h2 id="cap-advertising">Advertising Fluency</h2>
+          <p>Brand-aligned concepts that communicate with clarity, heart, and room for craft across campaign touchpoints.</p>
         </section>
-        <section id="footer">
-            <!-- Generic copyright content -->
-            <p>&copy; 2025 Splastik - All content on this website, including text, images, graphics, and other materials, is protected by copyright laws. Unauthorized use, reproduction, or distribution of any content without prior written permission from the copyright owner is strictly prohibited.</p>
+        <section class="value-item" aria-labelledby="cap-hybrid">
+          <h2 id="cap-hybrid">Hybrid Workflow</h2>
+          <p>LLMs & Diffusion for exploration; Photoshop, Illustrator, Krita & Blender for control, polish, and nuance.</p>
         </section>
+        <section class="value-item" aria-labelledby="cap-production">
+          <h2 id="cap-production">Production Ready</h2>
+          <p>Clean layers, smart objects, color management, painless handoff to in‑house editorial & marketing teams.</p>
+        </section>
+      </div>
+
+      <nav aria-label="Primary">
+        <a href="#portfolio" aria-label="Jump to portfolio section">Recent Work</a>
+        <a href="#process" aria-label="Learn about process">Process</a>
+        <a href="#capabilities" aria-label="Capabilities overview">Capabilities</a>
+        <a href="mailto:you@example.com?subject=Visual%20Project%20Inquiry" class="cta-accent" aria-label="Start a project via email">Start a Project</a>
+      </nav>
     </div>
-  </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <!-- Recent Work -->
+    <h2 id="portfolio">Recent Work</h2>
+    <section id="portfolio-grid" aria-describedby="portfolio">
+    <article class="project-card" aria-labelledby="proj-coverbite-title" data-tags="editorial,illustration">
+      <a href="#project-coverbite" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+      <figure>
+        <img src="https://placehold.co/480x270?text=X"
+          alt="Conceptual magazine cover with bold contrasting silhouettes"
+          loading="lazy" width="480" height="270">
+      </figure>
+      <h3 id="proj-coverbite-title">Cover Bite Concept</h3>
+      <p>High-impact cover exploration: mood + metaphor iterations driven by diffusion studies.</p>
+      <ul class="role-tags">
+        <li class="tag tag--editorial">editorial</li>
+        <li class="tag tag--illustration">illustration</li>
+      </ul>
+      <a class="project-link" href="#project-coverbite" aria-label="View details for Cover Bite Concept">View project →</a>
+    </article>
+
+    <article class="project-card" aria-labelledby="proj-campaignpulse-title" data-tags="advertising,commission">
+      <a href="#project-campaignpulse" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+      <figure>
+        <img src="https://placehold.co/480x270?text=X"
+          alt="Campaign storyboard frames arranged in a rhythmic grid"
+          loading="lazy" width="480" height="270">
+      </figure>
+      <h3 id="proj-campaignpulse-title">Campaign Pulse</h3>
+      <p>Hero concept + variant set establishing visual rhythm for multi-channel ad rollout.</p>
+      <ul class="role-tags">
+        <li class="tag tag--advertising">advertising</li>
+        <li class="tag tag--commission">commission</li>
+      </ul>
+      <a class="project-link" href="#project-campaignpulse" aria-label="View details for Campaign Pulse">View project →</a>
+    </article>
+
+    <article class="project-card" aria-labelledby="proj-motionlead-title" data-tags="animation,advertising">
+      <a href="#project-motionlead" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+      <figure>
+        <img src="https://placehold.co/480x270?text=X"
+          alt="Abstract animated frames with directional light sweeps"
+          loading="lazy" width="480" height="270">
+      </figure>
+      <h3 id="proj-motionlead-title">Motion Lead Teaser</h3>
+      <p>Short animated opener: diffusion concept frames refined into clean motion boards.</p>
+      <ul class="role-tags">
+        <li class="tag tag--animation">animation</li>
+        <li class="tag tag--advertising">advertising</li>
+      </ul>
+      <a class="project-link" href="#project-motionlead" aria-label="View details for Motion Lead Teaser">View project →</a>
+    </article>
+
+    <article class="project-card" aria-labelledby="proj-trainingpack-title" data-tags="training,illustration">
+      <a href="#project-trainingpack" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+      <figure>
+        <img src="https://placehold.co/480x270?text=X"
+          alt="Series of annotated process panels demonstrating workflow steps"
+          loading="lazy" width="480" height="270">
+      </figure>
+      <h3 id="proj-trainingpack-title">Workflow Training Pack</h3>
+      <p>Process breakdown assets - clear sequences for internal team upskilling.</p>
+      <ul class="role-tags">
+        <li class="tag tag--training">training</li>
+      </ul>
+      <a class="project-link" href="#project-trainingpack" aria-label="View details for Workflow Training Pack">View project →</a>
+    </article>
+
+    <article class="project-card" aria-labelledby="proj-colorpass-title" data-tags="editorial,commission">
+      <a href="#project-colorpass" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+      <figure>
+        <img src="https://placehold.co/480x270?text=X"
+          alt="Editorial feature spread with layered color treatments"
+          loading="lazy" width="480" height="270">
+      </figure>
+      <h3 id="proj-colorpass-title">Feature Color Pass</h3>
+      <p>Layered color + texture system unifying a multi-spread feature into a coherent arc.</p>
+      <ul class="role-tags">
+        <li class="tag tag--commission">commission</li>
+      </ul>
+      <a class="project-link" href="#project-colorpass" aria-label="View details for Feature Color Pass">View project →</a>
+    </article>
+
+    <article class="project-card" aria-labelledby="proj-trainingpack-title" data-tags="training,illustration">
+      <a href="#project-trainingpack" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+      <figure>
+        <img src="https://placehold.co/480x270?text=X"
+          alt="Series of annotated process panels demonstrating workflow steps"
+          loading="lazy" width="480" height="270">
+      </figure>
+      <h3 id="proj-trainingpack-title">Workflow Training Pack</h3>
+      <p>Process breakdown assets - clear sequences for internal team upskilling.</p>
+      <ul class="role-tags">
+        <li class="tag tag--training">training</li>
+        <li class="tag tag--illustration">illustration</li>
+      </ul>
+      <a class="project-link" href="#project-trainingpack" aria-label="View details for Workflow Training Pack">View project →</a>
+    </article>
+
+    <article class="project-card" aria-labelledby="proj-colorpass-title" data-tags="editorial,commission">
+      <a href="#project-colorpass" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+      <figure>
+        <img src="https://placehold.co/480x270?text=X"
+          alt="Editorial feature spread with layered color treatments"
+          loading="lazy" width="480" height="270">
+      </figure>
+      <h3 id="proj-colorpass-title">Feature Color Pass</h3>
+      <p>Layered color + texture system unifying a multi-spread feature into a coherent arc.</p>
+      <ul class="role-tags">
+        <li class="tag tag--editorial">editorial</li>
+      </ul>
+      <a class="project-link" href="#project-colorpass" aria-label="View details for Feature Color Pass">View project →</a>
+    </article>
+    </section>
+
+    <!-- Process -->
+     <section id="process" aria-labelledby="process-heading">
+      <h2 id="process-heading">Process</h2>
+      <p class="process-tagline">From brief to final artwork: a transparent, hybrid workflow balancing AI exploration with human craft.</p>
+
+      <ol class="process-timeline">
+        <li class="process-item" id="process-brief">
+          <div class="process-step">
+            <div class="process-head">
+              <span class="process-num" aria-hidden="true"></span>
+              <h3 class="process-title">Initial Brief & Discovery</h3>
+            </div>
+            <div class="process-body">
+              <ul class="process-detail">
+                <li><strong>Client supplies goals, specs, references</strong> (tone, format, audience, deadlines).</li>
+                <li>We clarify:
+                  <ul>
+                    <li>Editorial vs. advertising intent</li>
+                    <li>Deliverables (single, series, variants)</li>
+                    <li>Brand guardrails & constraints</li>
+                  </ul>
+                </li>
+                <li>Optional: quick moodboard or verbal sketch to energize direction.</li>
+              </ul>
+            </div>
+          </div>
+          <figure class="process-media">
+            <img src="https://placehold.co/800x500?text=Brief" alt="Notebook and pinned reference thumbnails gathered during initial project briefing." loading="lazy" width="800" height="500">
+            <figcaption>Brief Materials</figcaption>
+          </figure>
+        </li>
+
+        <li class="process-item" id="process-concepts">
+          <div class="process-step">
+            <div class="process-head">
+              <span class="process-num" aria-hidden="true"></span>
+              <h3 class="process-title">Concept Development (LLM + Human Insight)</h3>
+            </div>
+            <div class="process-body">
+              <ul class="process-detail">
+                <li>LLMs surface metaphors, narrative angles, stylistic frames.</li>
+                <li>Draft 2–3 conceptual directions + rough visual notes.</li>
+                <li>Share, refine lightly, lock direction pre‑synthesis.</li>
+              </ul>
+            </div>
+          </div>
+          <figure class="process-media">
+            <img src="https://placehold.co/800x500?text=Concepts" alt="Collage of sketched concept thumbnails and prompt fragments." loading="lazy" width="800" height="500">
+            <figcaption>Concept Frames</figcaption>
+          </figure>
+        </li>
+
+        <li class="process-item" id="process-synthesis">
+          <div class="process-step">
+            <div class="process-head">
+              <span class="process-num" aria-hidden="true"></span>
+              <h3 class="process-title">Image Synthesis (Stable Diffusion)</h3>
+            </div>
+            <div class="process-body">
+              <ul class="process-detail">
+                <li>Generate studies tuned for composition, light, mood.</li>
+                <li>Align style (painterly, photoreal, surreal, hybrid).</li>
+                <li>Refine prompt logic / model parameters.</li>
+                <li>Curate strongest candidates for decision.</li>
+              </ul>
+            </div>
+          </div>
+          <figure class="process-media">
+            <img src="https://placehold.co/800x500?text=Synthesis" alt="Grid of diffusion-generated visual variations for selection." loading="lazy" width="800" height="500">
+            <figcaption>Synthesis Grid</figcaption>
+          </figure>
+        </li>
+
+        <li class="process-item" id="process-refinement">
+          <div class="process-step">
+            <div class="process-head">
+              <span class="process-num" aria-hidden="true"></span>
+              <h3 class="process-title">Refinement & Compositing (Adobe + Krita)</h3>
+            </div>
+            <div class="process-body">
+              <ul class="process-detail">
+                <li>Cleanup, masking, precise layer separation.</li>
+                <li>Generative fill / canvas extensions for layout agility.</li>
+                <li>Color grading & fidelity checks (print / digital).</li>
+                <li>Add typography / layout elements as required.</li>
+              </ul>
+            </div>
+          </div>
+          <figure class="process-media">
+            <img src="https://placehold.co/800x500?text=Refinement" alt="Layered editing workspace showing masks and adjustment layers during refinement." loading="lazy" width="800" height="500">
+            <figcaption>Layer Refinement</figcaption>
+          </figure>
+        </li>
+
+        <li class="process-item" id="process-delivery">
+          <div class="process-step">
+            <div class="process-head">
+              <span class="process-num" aria-hidden="true"></span>
+              <h3 class="process-title">Final Delivery</h3>
+            </div>
+            <div class="process-body">
+              <ul class="process-detail">
+                <li>Export production‑ready assets:
+                  <ul>
+                    <li>Layered PSD / TIFF (editorial)</li>
+                    <li>Flattened hi‑res JPEG / PNG (ads)</li>
+                    <li>Optional web / social variants</li>
+                  </ul>
+                </li>
+                <li>Include metadata, licensing & usage guidance.</li>
+                <li>Handoff via preferred method (cloud / email / DAM).</li>
+              </ul>
+            </div>
+          </div>
+          <figure class="process-media">
+            <img src="https://placehold.co/800x500?text=Delivery" alt="Folder of exported asset thumbnails and delivery checklist." loading="lazy" width="800" height="500">
+            <figcaption>Export Set</figcaption>
+          </figure>
+        </li>
+
+        <li class="process-item" id="process-revisions">
+          <div class="process-step">
+            <div class="process-head">
+              <span class="process-num" aria-hidden="true"></span>
+              <h3 class="process-title">Optional Revisions & Support</h3>
+            </div>
+            <div class="process-body">
+              <ul class="process-detail">
+                <li>One round of minor tweaks (color, crop, overlay) included.</li>
+                <li>Further revisions billed hourly or per scope.</li>
+                <li>Ongoing support for campaigns or serialized editorial.</li>
+              </ul>
+            </div>
+          </div>
+          <figure class="process-media">
+            <img src="https://placehold.co/800x500?text=Revisions" alt="Before and after comparison showing subtle color and composition adjustments." loading="lazy" width="800" height="500">
+            <figcaption>Revision Pass</figcaption>
+          </figure>
+        </li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> Saul Plastik. All rights reserved.
+  </footer>
 
   <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const contentWrapper = document.querySelector('.content-wrapper');
-  const content = document.querySelector('.content-container');
-  const gridBackground = document.querySelector('.grid-background');
-  
-  // Grid animation variables
-  const minGridSize = 10; // Minimum grid cell size
-  const maxGridSize = 30; // Maximum grid cell size
-  let gridSize = 20; // Initial grid cell size
-  let gridIncreasing = true; // Direction of animation
-  let animationSpeed = 0.01; // Speed of animation (pixels per frame)
-  
-  // Function to update grid size based on content
-  function updateGridSize() {
-    // Set content wrapper height to match content height
-    contentWrapper.style.height = content.offsetHeight + 'px';
-  }
-  
-  // Initial update on DOMContentLoaded (might run before images load)
-  updateGridSize();
-  
-  // Also update after window has fully loaded (including all images)
-  window.addEventListener('load', updateGridSize);
-  
-  // Update on window resize
-  window.addEventListener('resize', updateGridSize);
-  
-  // Update if content changes (optional)
-  // This uses MutationObserver to detect DOM changes
-  const observer = new MutationObserver(updateGridSize);
-  observer.observe(content, { 
-    childList: true, 
-    subtree: true,
-    attributes: true
-  });
-
-  const cards = document.querySelectorAll('.card');
-
-  cards.forEach(card => {
-    card.addEventListener('mouseover', () => {
-      cards.forEach(c => {
-        if (c !== card) {
-          c.style.transition = 'opacity 2s, background-color 0.75s, color: 0.75s';
-          c.style.opacity = '0.5';
-        } else {
-          c.style.transition = 'opacity 1s, background-color 0.25s, color: 0.25s';
-          c.style.opacity = '1';
-        }
-      });
-    });
-
-    card.addEventListener('mouseout', () => {
-      cards.forEach(c => {
-        c.style.transition = 'opacity 2s, background-color 0.75s, color: 0.75s';
-        c.style.opacity = '1';
-      });
-    });
-  });
-  
-  // Function to animate the grid size
-  function animateGrid() {
-    // Update direction if we hit a boundary
-    if (gridSize >= maxGridSize) {
-      gridIncreasing = false;
-    } else if (gridSize <= minGridSize) {
-      gridIncreasing = true;
-    }
-    
-    // Update the grid size
-    if (gridIncreasing) {
-      gridSize += animationSpeed;
-    } else {
-      gridSize -= animationSpeed;
-    }
-    
-    // Apply the new grid size
-    document.documentElement.style.setProperty('--grid-cell-size', `${gridSize}px`);
-    
-    // Update the grid background size
-    gridBackground.style.backgroundSize = `
-      ${gridSize}px ${gridSize}px,
-      ${gridSize}px ${gridSize}px,
-      ${gridSize * 10}px ${gridSize * 10}px,
-      ${gridSize * 10}px ${gridSize * 10}px
-    `;
-    
-    // Request the next animation frame
-    requestAnimationFrame(animateGrid);
-  }
-  
-  // Start the grid animation
-  animateGrid();
-});
+    // Update year automatically
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
