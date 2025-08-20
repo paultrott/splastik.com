@@ -490,11 +490,11 @@ footer a { color: inherit; }
   margin-top: 1.5rem;
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 @media (min-width: 1400px) {
   #portfolio-grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 }
 
@@ -794,12 +794,12 @@ footer a { color: inherit; }
 /* Lists inside body */
 .process-detail,
 .process-detail ul {
-  margin: 0 0 0.65rem 1.15rem; /* Keep nested bullets indented slightly */
+  margin: 1.15rem 0 0.65rem 1.15rem; /* Keep nested bullets indented slightly */
   padding: 0;
 }
 
 .process-detail li {
-  margin: 0 0 0.4rem;
+  margin: 1rem 0 0.4rem;
   line-height: 1.4;
 }
 
