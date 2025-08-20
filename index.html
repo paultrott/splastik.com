@@ -24,6 +24,9 @@
   <link rel="icon" sizes="32x32" type="image/png" href="favicon-32.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
+  <!-- Styles -->
+  <link rel="stylesheet" href="./styles.css" />
+
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
@@ -39,879 +42,6 @@
   }
   </script>
 
-  <style>
-/* === 1. Foundations ====================================================== */
-:root {
-  /* Palette */
-  --color-bg: #111418;
-  --color-bg-alt: #1b2026;
-  --color-surface: #212830;
-  --color-accent: #ffe449;
-  --color-accent-alt: #ffb800;
-  --color-text: #f5f7fa;
-  --color-text-muted: #b5c1cc;
-  --color-focus: #94c8ff;
-
-  /* Typography & Rhythm */
-  --font-stack: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  --line-max: 66ch;
-
-  /* Motion & Shape */
-  --transition: 320ms ease;
-  --radius-sm: 4px;
-  --radius-md: 10px;
-
-  /* Elevation */
-  --shadow-elev: 0 4px 12px -2px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.04);
-
-  /* Card System */
-  --card-bg: rgba(255,255,255,0.03);
-  --card-bg-hover: rgba(255,255,255,0.07);
-  --card-border: rgba(255,255,255,0.08);
-  --card-border-hover: rgba(255,255,255,0.25);
-  --card-radius: 14px;
-  --card-shadow: 0 2px 6px -1px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
-
-  /* Tag System */
-  --tag-font-size: 0.625rem;
-  --tag-weight: 600;
-  --tag-editorial: #3d7dff;
-  --tag-advertising: #ff8a3d;
-  --tag-commission: #b347ff;
-  --tag-animation: #15b8a6;
-  --tag-illustration: #ffcd2e;
-  --tag-training: #4caf50;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --color-bg: #f7f9fc;
-    --color-bg-alt: #ffffff;
-    --color-surface: #ffffff;
-    --color-text: #1d242b;
-    --color-text-muted: #536271;
-    --color-focus: #004b9a;
-    --shadow-elev: 0 3px 10px -2px rgba(0,0,0,0.15),0 0 0 1px rgba(0,0,0,0.06);
-
-    --card-bg: rgba(0,0,0,0.03);
-    --card-bg-hover: rgba(0,0,0,0.06);
-    --card-border: rgba(0,0,0,0.08);
-    --card-border-hover: rgba(0,0,0,0.30);
-    --card-shadow: 0 2px 6px -1px rgba(0,0,0,0.18),0 0 0 1px rgba(0,0,0,0.04);
-  }
-}
-
-* { box-sizing: border-box; }
-html:focus-within { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  font-family: var(--font-stack);
-  background: var(--color-bg);
-  color: var(--color-text);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  max-width: 100vw;
-  overflow-x: clip;
-}
-
-/* === 2. Accessibility / Utility ========================================= */
-.skip-link {
-  position: absolute;
-  top: 0; left: 0;
-  transform: translateY(-120%);
-  background: var(--color-accent);
-  color: #000;
-  padding: 0.65rem 1rem;
-  font-weight: 600;
-  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-  transition: transform var(--transition);
-  z-index: 1000;
-}
-.skip-link:focus { outline: none; transform: translateY(0); }
-
-:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 3px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  /* *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  } */
-}
-
-/* === 3. Header / Hero ==================================================== */
-header[role="banner"] {
-  position: relative;
-  padding: clamp(2rem, 5vw, 4rem) 1.5rem 2.5rem;
-  overflow: hidden;
-}
-
-header[role="banner"]::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(145deg, rgba(10,12,15,0.78), rgba(10,12,15,0.35)),
-    url("feature_0.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  transform: scale(1.02);
-}
-
-@media (min-width: 1400px) {
-  header[role="banner"]::before {
-    background-image:
-      linear-gradient(145deg, rgba(10,12,15,0.72), rgba(10,12,15,0.28)),
-      url("feature_0.png");
-  }
-}
-
-@media (max-width: 780px), (hover: none) and (pointer: coarse) {
-  header[role="banner"]::before { background-attachment: scroll; }
-}
-
-.header-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  gap: clamp(1.5rem, 4vw, 3rem);
-}
-
-.branding {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.branding img {
-  width: clamp(60px, 12vw, 100px);
-  height: auto;
-  flex: 0 0 auto;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
-}
-
-.branding .logo {
-  width: clamp(120px, 24vw, 200px);
-  height: clamp(120px, 24vw, 200px);
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #000;
-  overflow: hidden;
-}
-
-/* === New: Logo stack & caption ========================================== */
-.logo-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 1;
-}
-
-.logo-caption {
-  margin: 0.4rem 0 0;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  text-align: center;
-  user-select: none;
-}
-
-/* Slightly larger on very large screens */
-@media (min-width: 1200px) {
-  .logo-caption {
-    font-size: 0.7rem;
-  }
-}
-
-h1 {
-  font-size: clamp(1.95rem, 5.2vw, 3.25rem);
-  line-height: 1.08;
-  margin: 0;
-  letter-spacing: -0.5px;
-  font-weight: 650;
-  max-width: 20ch;
-}
-
-.tagline {
-  font-size: clamp(1rem, 1.3vw + 0.6rem, 1.35rem);
-  color: var(--color-accent);
-  margin: 0.75rem 0 0;
-  max-width: 50ch;
-}
-
-/* === 4. Capability Blocks =============================================== */
-.value-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  margin-top: 2rem;
-}
-.value-item {
-  background: var(--color-surface);
-  padding: 1rem 1.1rem 1.15rem;
-  border-radius: var(--radius-md);
-  position: relative;
-  box-shadow: var(--shadow-elev);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.value-item h2 {
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  margin: 0;
-  font-weight: 600;
-  color: var(--color-accent);
-}
-.value-item p {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-/* === 5. Nav ============================================================= */
-nav[aria-label="Primary"] {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-nav[aria-label="Primary"] a {
-  --btn-bg: var(--color-surface);
-  --btn-color: var(--color-text);
-  text-decoration: none;
-  padding: 0.75rem 1rem 0.7rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-  border: 1px solid var(--color-surface);
-  color: var(--btn-color);
-  background: var(--btn-bg);
-  border-radius: var(--radius-sm);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  position: relative;
-  transition: background var(--transition),
-              border-color var(--transition),
-              color var(--transition),
-              transform var(--transition);
-}
-nav[aria-label="Primary"] a:hover,
-nav[aria-label="Primary"] a:focus-visible {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #1d1d10;
-}
-nav[aria-label="Primary"] a:active { transform: translateY(1px); }
-
-.cta-accent {
-  --btn-bg: var(--color-accent);
-  --btn-color: #1a1603;
-  border-color: var(--color-accent);
-}
-.cta-accent:hover,
-.cta-accent:focus-visible {
-  background: var(--color-accent-alt);
-  border-color: var(--color-accent-alt);
-  color: #1a1603;
-}
-
-/* === 6. Layout Containers =============================================== */
-main {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
-}
-
-footer {
-  padding: 2rem 1.5rem;
-  font-size: 0.75rem;
-  text-align: center;
-  color: var(--color-text-muted);
-}
-footer a { color: inherit; }
-
-/* === 7. Portfolio Cards ================================================= */
-#portfolio-grid {
-  margin-top: 1.5rem;
-  display: grid;
-  gap: 1.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-}
-@media (min-width: 1400px) {
-  #portfolio-grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
-}
-
-.project-card {
-  position: relative;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
-  padding: 0.85rem 0.85rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
-  transition: border-color var(--transition),
-              background var(--transition),
-              box-shadow var(--transition);
-  isolation: isolate;
-}
-.project-card:hover,
-.project-card:focus-within {
-  background: var(--card-bg-hover);
-  border-color: var(--card-border-hover);
-  box-shadow: 0 6px 14px -4px rgba(0,0,0,0.55),
-              0 0 0 1px var(--card-border-hover);
-}
-
-.project-card figure {
-  margin: -0.85rem -0.85rem 0.5rem;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: #000;
-  position: relative;
-}
-
-.project-card figure img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transform: scale(1);
-  transform-origin: center;
-  transition:
-    transform 1200ms cubic-bezier(.22,.65,.28,1),
-    filter 800ms ease;
-  will-change: transform, filter;
-  filter: saturate(1.02) brightness(0.96);
-}
-.project-card:hover figure img,
-.project-card:focus-within figure img {
-  transform: scale(1.065);
-  filter: saturate(1.12) brightness(1);
-}
-
-.project-card h3 {
-  font-size: 0.95rem;
-  margin: 0;
-  line-height: 1.2;
-  font-weight: 600;
-}
-.project-card p {
-  font-size: 0.75rem;
-  line-height: 1.3;
-  margin: 0;
-  color: var(--color-text-muted);
-}
-
-/* Tag list */
-.role-tags {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-.role-tags .tag {
-  /* --tag-bg: #444; */
-  --tag-color: #fff;
-  font-size: var(--tag-font-size);
-  font-weight: var(--tag-weight);
-  letter-spacing: 0.4px;
-  padding: 0.35rem;
-  line-height: 1;
-  border-radius: 999px;
-  background: var(--tag-bg);
-  color: var(--tag-color);
-  display: inline-flex;
-  align-items: center;
-}
-
-/* Tag variants */
-.tag--editorial     { --tag-bg: color-mix(in srgb, var(--tag-editorial) 75%, #000); }
-.tag--advertising   { --tag-bg: color-mix(in srgb, var(--tag-advertising) 78%, #000); }
-.tag--commission    { --tag-bg: color-mix(in srgb, var(--tag-commission) 80%, #000); }
-.tag--animation     { --tag-bg: color-mix(in srgb, var(--tag-animation) 78%, #000); }
-.tag--illustration  { --tag-bg: color-mix(in srgb, var(--tag-illustration) 72%, #000); color: #2e2500; }
-.tag--training      { --tag-bg: color-mix(in srgb, var(--tag-training) 75%, #000); }
-
-/* Project link */
-.project-card a.project-link {
-  margin-top: auto;
-  align-self: flex-end;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4ch;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.35px;
-  text-decoration: none;
-  color: var(--color-accent);
-  padding: 0.4rem 0.55rem 0.38rem;
-  border-radius: 6px;
-  position: relative;
-  border: 1px solid transparent;
-  transition: background var(--transition),
-              color var(--transition),
-              border-color var(--transition),
-              transform var(--transition);
-}
-.project-card a.project-link:hover,
-.project-card a.project-link:focus-visible {
-  background: rgba(255,228,73,0.15);
-  border-color: var(--color-accent);
-  color: #ffe449;
-}
-.project-card a.project-link:active { transform: translateY(1px); }
-
-/* Make entire card clickable via overlay anchor (still keep explicit link) */
-.project-card .card-hit {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-.project-card a.project-link,
-.project-card h3,
-.project-card p,
-.project-card .role-tags {
-  position: relative;
-  z-index: 1;
-}
-
-/* Focus outline on any internal focus */
-.project-card:focus-within {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
-}
-
-/* Mobile branding layout: center logo + text */
-@media (max-width: 640px) {
-  .branding {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .branding .logo {
-    margin-inline: auto;
-  }
-
-  .branding > div {
-    text-align: center;
-  }
-}
-
-/* === Refined Process Timeline =========================================== */
-#process {
-  margin-top: clamp(3.5rem, 7vw, 5.5rem);
-  /* max-width: 1200px; */
-  position: relative;
-}
-
-#process-heading {
-  /* font-size: clamp(1.55rem, 3.4vw, 2.35rem); */
-  line-height: 1.12;
-  letter-spacing: -0.5px;
-  margin: 0 0 0.55rem;
-  font-weight: 650;
-}
-
-.process-tagline {
-  margin: 0 0 2rem;
-  font-size: clamp(0.85rem, 0.4vw + 0.8rem, 0.98rem);
-  line-height: 1.55;
-  color: var(--color-text-muted);
-  max-width: 62ch;
-}
-
-.process-timeline {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: clamp(1.6rem, 2.4vw, 2.6rem);
-  counter-reset: proc;
-  position: relative;
-}
-
-/* Vertical spine (base) */
-.process-timeline::before {
-  content: "";
-  position: absolute;
-  left: 2.4rem;
-  top: 0.25rem;
-  bottom: 0.25rem;
-  width: 2px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
-  border-radius: 2px;
-  pointer-events: none;
-}
-
-.process-step {
-  counter-increment: proc;
-  position: relative;
-  padding: 1.1rem 1.25rem 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015))
-    var(--color-surface);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-elev);
-  isolation: isolate;
-  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
-  overflow: hidden;
-}
-
-/* Single disc with step number (replaces former icon + separate number badge) */
-.process-step::before {
-  content: none !important;
-}
-
-.process-num {
-  --disc-size: 2.65rem;
-  width: var(--disc-size);
-  aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.05rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.5px;
-  color: #fff;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), rgba(255,255,255,0) 62%),
-    linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
-  border: 1px solid rgba(255,255,255,0.22);
-  border-radius: 50%;
-  box-shadow: 0 2px 6px -2px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.35);
-  backdrop-filter: blur(4px) saturate(150%);
-  -webkit-backdrop-filter: blur(4px) saturate(150%);
-  flex: 0 0 auto;
-  position: relative;
-}
-
-.process-num::before {
-  content: counter(proc);
-}
-
-.process-head {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  min-height: 3rem; /* Ensures vertical centering presence even if title wraps */
-  position: relative;
-}
-
-.process-title {
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.25;
-  font-weight: 600;
-  letter-spacing: 0.25px;
-}
-
-.process-body {
-  margin-top: 0.75rem;
-  display: block;
-}
-
-/* Optional subtle separator line between head and body */
-.process-body::before {
-  content: "";
-  display: block;
-  height: 1px;
-  background: linear-gradient(to right, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
-  margin: 0 0 0.85rem;
-  border-radius: 1px;
-}
-
-/* Lists inside body */
-.process-detail,
-.process-detail ul {
-  margin: 0 0 0.65rem 1.15rem; /* Keep nested bullets indented slightly */
-  padding: 0;
-}
-
-.process-detail li {
-  margin: 0 0 0.4rem;
-  line-height: 1.4;
-}
-
-.process-note {
-  margin: 0.25rem 0 0;
-  font-size: 0.7rem;
-  color: var(--color-text-muted);
-  font-style: italic;
-}
-
-/* Light theme adjustments */
-@media (prefers-color-scheme: light) {
-  .process-num {
-    background:
-      radial-gradient(circle at 30% 30%, rgba(0,0,0,0.15), rgba(0,0,0,0) 62%),
-      linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02));
-    border-color: rgba(0,0,0,0.25);
-    color: #1d242b;
-    box-shadow: 0 2px 5px -2px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,0,0,0.25);
-  }
-  .process-body::before {
-    background: linear-gradient(to right, rgba(0,0,0,0.18), rgba(0,0,0,0.05));
-  }
-}
-
-/* Wide screens: no special ::after adjustments needed anymore */
-@media (min-width: 900px) {
-
-  /* Parent just stacks rows and carries the central spine */
-  .process-timeline {
-    /* keep it a block/grid with single column; gap purely vertical */
-    display: grid;
-    gap: 3.25rem;
-    position: relative;
-  }
-
-  .process-timeline::before {
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(
-      to bottom,
-      rgba(255,255,255,0.25),
-      rgba(255,255,255,0.07)
-    );
-  }
-
-  /* Each item owns its 2-column pairing */
-  .process-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 3.25rem;
-    align-items: stretch;
-    position: relative;
-  }
-
-  /* Remove mobile top spacing; vertical rhythm handled by parent gap */
-  .process-item + .process-item { margin-top: 0; }
-
-  /* Alternation: odd = card left, image right */
-  .process-item:nth-child(odd) .process-step  { order: 1; }
-  .process-item:nth-child(odd) .process-media { order: 2; }
-
-  /* Even = image left, card right */
-  .process-item:nth-child(even) .process-step  { order: 2; }
-  .process-item:nth-child(even) .process-media { order: 1; }
-
-  /* Full-row vertical alignment */
-  .process-step,
-  .process-media {
-    height: 100%;
-    margin: 0;
-  }
-
-  .process-step {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    max-width: 100%;
-  }
-
-  .process-step::before {
-    left: 1.15rem; /* slight inset for balance */
-  }
-
-  .process-media {
-    margin: 0;
-  }
-}
-
-/* Reveal animation (unchanged logic – adjusted distance) */
-@media (prefers-reduced-motion: no-preference) {
-  .process-step {
-    opacity: 0;
-    transform: translateY(26px);
-    animation: proc-fade 780ms cubic-bezier(.22,.65,.28,1) forwards;
-  }
-  .process-step:nth-child(2) { animation-delay: 60ms; }
-  .process-step:nth-child(3) { animation-delay: 120ms; }
-  .process-step:nth-child(4) { animation-delay: 180ms; }
-  .process-step:nth-child(5) { animation-delay: 240ms; }
-  .process-step:nth-child(6) { animation-delay: 300ms; }
-  @keyframes proc-fade {
-    to { opacity: 1; transform: translateY(0); }
-  }
-}
-
-/* Light theme overrides */
-@media (prefers-color-scheme: light) {
-  .process-step {
-    border-color: rgba(0,0,0,0.08);
-    background:
-      linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.005))
-      var(--color-surface);
-  }
-  .process-step:hover,
-  .process-step:focus-within {
-    border-color: rgba(0,0,0,0.28);
-  }
-  .process-timeline::before {
-    background: linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.08));
-  }
-}
-
-/* === Process: dual-column media layout enhancements ===================== */
-
-/* Base media styling (mobile-first: stacked under the step card) */
-.process-item {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.process-item + .process-item {
-  margin-top: clamp(1.6rem, 2.4vw, 2.6rem);
-}
-
-.process-step {
-  /* Remove width/alt layout artifacts from previous alternating approach */
-  max-width: 100%;
-  margin: 0 !important;
-}
-
-.process-media {
-  margin: 0.75rem 0 0;
-  position: relative;
-  aspect-ratio: 16 / 9;
-  background: #0e1215;
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: 0 2px 6px -2px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04);
-  display: flex;
-}
-
-.process-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  filter: saturate(1.05) brightness(0.95);
-  transition: transform 1200ms cubic-bezier(.22,.65,.28,1),
-             filter 900ms ease;
-  transform: scale(1);
-}
-
-.process-item:hover .process-media img,
-.process-item:focus-within .process-media img {
-  transform: scale(1.06);
-  filter: saturate(1.15) brightness(1);
-}
-
-.process-media figcaption {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: 0.4rem 0.55rem 0.5rem;
-  font-size: 0.55rem;
-  letter-spacing: 0.08em;
-  font-weight: 600;
-  text-transform: uppercase;
-  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
-  color: var(--color-text-muted);
-  pointer-events: none;
-  mix-blend-mode: normal;
-}
-
-/* Larger screens: two-column alternating layout with central spine */
-@media (min-width: 900px) {
-
-  /* Parent just stacks rows and carries the central spine */
-  .process-timeline {
-    /* keep it a block/grid with single column; gap purely vertical */
-    display: grid;
-    gap: 3.25rem;
-    position: relative;
-  }
-
-  .process-timeline::before {
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(
-      to bottom,
-      rgba(255,255,255,0.25),
-      rgba(255,255,255,0.07)
-    );
-  }
-
-  /* Each item owns its 2-column pairing */
-  .process-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 3.25rem;
-    align-items: stretch;
-    position: relative;
-  }
-
-  /* Remove mobile top spacing; vertical rhythm handled by parent gap */
-  .process-item + .process-item { margin-top: 0; }
-
-  /* Alternation: odd = card left, image right */
-  .process-item:nth-child(odd) .process-step  { order: 1; }
-  .process-item:nth-child(odd) .process-media { order: 2; }
-
-  /* Even = image left, card right */
-  .process-item:nth-child(even) .process-step  { order: 2; }
-  .process-item:nth-child(even) .process-media { order: 1; }
-
-  /* Full-row vertical alignment */
-  .process-step,
-  .process-media {
-    height: 100%;
-    margin: 0;
-  }
-
-  .process-step {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    max-width: 100%;
-  }
-
-  .process-step::before {
-    left: 1.15rem; /* slight inset for balance */
-  }
-
-  .process-media {
-    margin: 0;
-  }
-}
-
-/* Light theme tweak for media border */
-@media (prefers-color-scheme: light) {
-  .process-media {
-    border-color: rgba(0,0,0,0.1);
-    box-shadow: 0 2px 6px -2px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.05);
-  }
-}
-  </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
@@ -924,7 +54,7 @@ footer a { color: inherit; }
           <p class="logo-caption">Saul Plastik</p>
         </div>
         <div>
-          <h1>Diffusion Designer for Editorial & Advertising</h1>
+          <h1>Editorial & Advertising Diffusion Designer</h1>
           <p class="tagline">
             AI for breadth - hand & eye for taste. Fast, story-led imagery from concept scribbles to production‑ready layered files.
           </p>
@@ -963,114 +93,116 @@ footer a { color: inherit; }
     <!-- Recent Work -->
     <h2 id="portfolio">Recent Work</h2>
     <section id="portfolio-grid" aria-describedby="portfolio">
-    <article class="project-card" aria-labelledby="proj-coverbite-title" data-tags="editorial,illustration">
-      <a href="#project-coverbite" class="card-hit" aria-hidden="true" tabindex="-1"></a>
-      <figure>
-        <img src="https://placehold.co/480x270?text=X"
-          alt="Conceptual magazine cover with bold contrasting silhouettes"
-          loading="lazy" width="480" height="270">
-      </figure>
-      <h3 id="proj-coverbite-title">Cover Bite Concept</h3>
-      <p>High-impact cover exploration: mood + metaphor iterations driven by diffusion studies.</p>
-      <ul class="role-tags">
-        <li class="tag tag--editorial">editorial</li>
-        <li class="tag tag--illustration">illustration</li>
-      </ul>
-      <a class="project-link" href="#project-coverbite" aria-label="View details for Cover Bite Concept">View project →</a>
-    </article>
+      <article class="project-card" aria-labelledby="proj-coverbite-title" data-tags="editorial,illustration">
+        <a href="#project-coverbite" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+        <figure>
+          <!-- Properly size images -->
+          <img src="https://placehold.co/480x270?text=X"
+            alt="Conceptual magazine cover with bold contrasting silhouettes"
+            loading="lazy" width="480" height="270">
+        </figure>
+        <h3 id="proj-coverbite-title">Cover Bite Concept</h3>
+        <p>High-impact cover exploration: mood + metaphor iterations driven by diffusion studies.</p>
+        <ul class="role-tags">
+          <li class="tag tag--editorial">editorial</li>
+          <li class="tag tag--illustration">illustration</li>
+        </ul>
+        <a class="project-link" href="#project-coverbite" aria-label="View details for Cover Bite Concept">View project →</a>
+      </article>
 
-    <article class="project-card" aria-labelledby="proj-campaignpulse-title" data-tags="advertising,commission">
-      <a href="#project-campaignpulse" class="card-hit" aria-hidden="true" tabindex="-1"></a>
-      <figure>
-        <img src="https://placehold.co/480x270?text=X"
-          alt="Campaign storyboard frames arranged in a rhythmic grid"
-          loading="lazy" width="480" height="270">
-      </figure>
-      <h3 id="proj-campaignpulse-title">Campaign Pulse</h3>
-      <p>Hero concept + variant set establishing visual rhythm for multi-channel ad rollout.</p>
-      <ul class="role-tags">
-        <li class="tag tag--advertising">advertising</li>
-        <li class="tag tag--commission">commission</li>
-      </ul>
-      <a class="project-link" href="#project-campaignpulse" aria-label="View details for Campaign Pulse">View project →</a>
-    </article>
+      <!-- Repeat for all images in project cards -->
+      <article class="project-card" aria-labelledby="proj-campaignpulse-title" data-tags="advertising,commission">
+        <a href="#project-campaignpulse" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+        <figure>
+          <img src="https://placehold.co/480x270?text=X"
+            alt="Campaign storyboard frames arranged in a rhythmic grid"
+            loading="lazy" width="480" height="270">
+        </figure>
+        <h3 id="proj-campaignpulse-title">Campaign Pulse</h3>
+        <p>Hero concept + variant set establishing visual rhythm for multi-channel ad rollout.</p>
+        <ul class="role-tags">
+          <li class="tag tag--advertising">advertising</li>
+          <li class="tag tag--commission">commission</li>
+        </ul>
+        <a class="project-link" href="#project-campaignpulse" aria-label="View details for Campaign Pulse">View project →</a>
+      </article>
 
-    <article class="project-card" aria-labelledby="proj-motionlead-title" data-tags="animation,advertising">
-      <a href="#project-motionlead" class="card-hit" aria-hidden="true" tabindex="-1"></a>
-      <figure>
-        <img src="https://placehold.co/480x270?text=X"
-          alt="Abstract animated frames with directional light sweeps"
-          loading="lazy" width="480" height="270">
-      </figure>
-      <h3 id="proj-motionlead-title">Motion Lead Teaser</h3>
-      <p>Short animated opener: diffusion concept frames refined into clean motion boards.</p>
-      <ul class="role-tags">
-        <li class="tag tag--animation">animation</li>
-        <li class="tag tag--advertising">advertising</li>
-      </ul>
-      <a class="project-link" href="#project-motionlead" aria-label="View details for Motion Lead Teaser">View project →</a>
-    </article>
+      <article class="project-card" aria-labelledby="proj-motionlead-title" data-tags="animation,advertising">
+        <a href="#project-motionlead" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+        <figure>
+          <img src="https://placehold.co/480x270?text=X"
+            alt="Abstract animated frames with directional light sweeps"
+            loading="lazy" width="480" height="270">
+        </figure>
+        <h3 id="proj-motionlead-title">Motion Lead Teaser</h3>
+        <p>Short animated opener: diffusion concept frames refined into clean motion boards.</p>
+        <ul class="role-tags">
+          <li class="tag tag--animation">animation</li>
+          <li class="tag tag--advertising">advertising</li>
+        </ul>
+        <a class="project-link" href="#project-motionlead" aria-label="View details for Motion Lead Teaser">View project →</a>
+      </article>
 
-    <article class="project-card" aria-labelledby="proj-trainingpack-title" data-tags="training,illustration">
-      <a href="#project-trainingpack" class="card-hit" aria-hidden="true" tabindex="-1"></a>
-      <figure>
-        <img src="https://placehold.co/480x270?text=X"
-          alt="Series of annotated process panels demonstrating workflow steps"
-          loading="lazy" width="480" height="270">
-      </figure>
-      <h3 id="proj-trainingpack-title">Workflow Training Pack</h3>
-      <p>Process breakdown assets - clear sequences for internal team upskilling.</p>
-      <ul class="role-tags">
-        <li class="tag tag--training">training</li>
-      </ul>
-      <a class="project-link" href="#project-trainingpack" aria-label="View details for Workflow Training Pack">View project →</a>
-    </article>
+      <article class="project-card" aria-labelledby="proj-trainingpack-title" data-tags="training,illustration">
+        <a href="#project-trainingpack" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+        <figure>
+          <img src="https://placehold.co/480x270?text=X"
+            alt="Series of annotated process panels demonstrating workflow steps"
+            loading="lazy" width="480" height="270">
+        </figure>
+        <h3 id="proj-trainingpack-title">Workflow Training Pack</h3>
+        <p>Process breakdown assets - clear sequences for internal team upskilling.</p>
+        <ul class="role-tags">
+          <li class="tag tag--training">training</li>
+        </ul>
+        <a class="project-link" href="#project-trainingpack" aria-label="View details for Workflow Training Pack">View project →</a>
+      </article>
 
-    <article class="project-card" aria-labelledby="proj-colorpass-title" data-tags="editorial,commission">
-      <a href="#project-colorpass" class="card-hit" aria-hidden="true" tabindex="-1"></a>
-      <figure>
-        <img src="https://placehold.co/480x270?text=X"
-          alt="Editorial feature spread with layered color treatments"
-          loading="lazy" width="480" height="270">
-      </figure>
-      <h3 id="proj-colorpass-title">Feature Color Pass</h3>
-      <p>Layered color + texture system unifying a multi-spread feature into a coherent arc.</p>
-      <ul class="role-tags">
-        <li class="tag tag--commission">commission</li>
-      </ul>
-      <a class="project-link" href="#project-colorpass" aria-label="View details for Feature Color Pass">View project →</a>
-    </article>
+      <article class="project-card" aria-labelledby="proj-colorpass-title" data-tags="editorial,commission">
+        <a href="#project-colorpass" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+        <figure>
+          <img src="https://placehold.co/480x270?text=X"
+            alt="Editorial feature spread with layered color treatments"
+            loading="lazy" width="480" height="270">
+        </figure>
+        <h3 id="proj-colorpass-title">Feature Color Pass</h3>
+        <p>Layered color + texture system unifying a multi-spread feature into a coherent arc.</p>
+        <ul class="role-tags">
+          <li class="tag tag--commission">commission</li>
+        </ul>
+        <a class="project-link" href="#project-colorpass" aria-label="View details for Feature Color Pass">View project →</a>
+      </article>
 
-    <article class="project-card" aria-labelledby="proj-trainingpack-title" data-tags="training,illustration">
-      <a href="#project-trainingpack" class="card-hit" aria-hidden="true" tabindex="-1"></a>
-      <figure>
-        <img src="https://placehold.co/480x270?text=X"
-          alt="Series of annotated process panels demonstrating workflow steps"
-          loading="lazy" width="480" height="270">
-      </figure>
-      <h3 id="proj-trainingpack-title">Workflow Training Pack</h3>
-      <p>Process breakdown assets - clear sequences for internal team upskilling.</p>
-      <ul class="role-tags">
-        <li class="tag tag--training">training</li>
-        <li class="tag tag--illustration">illustration</li>
-      </ul>
-      <a class="project-link" href="#project-trainingpack" aria-label="View details for Workflow Training Pack">View project →</a>
-    </article>
+      <article class="project-card" aria-labelledby="proj-trainingpack-title" data-tags="training,illustration">
+        <a href="#project-trainingpack" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+        <figure>
+          <img src="https://placehold.co/480x270?text=X"
+            alt="Series of annotated process panels demonstrating workflow steps"
+            loading="lazy" width="480" height="270">
+        </figure>
+        <h3 id="proj-trainingpack-title">Workflow Training Pack</h3>
+        <p>Process breakdown assets - clear sequences for internal team upskilling.</p>
+        <ul class="role-tags">
+          <li class="tag tag--training">training</li>
+          <li class="tag tag--illustration">illustration</li>
+        </ul>
+        <a class="project-link" href="#project-trainingpack" aria-label="View details for Workflow Training Pack">View project →</a>
+      </article>
 
-    <article class="project-card" aria-labelledby="proj-colorpass-title" data-tags="editorial,commission">
-      <a href="#project-colorpass" class="card-hit" aria-hidden="true" tabindex="-1"></a>
-      <figure>
-        <img src="https://placehold.co/480x270?text=X"
-          alt="Editorial feature spread with layered color treatments"
-          loading="lazy" width="480" height="270">
-      </figure>
-      <h3 id="proj-colorpass-title">Feature Color Pass</h3>
-      <p>Layered color + texture system unifying a multi-spread feature into a coherent arc.</p>
-      <ul class="role-tags">
-        <li class="tag tag--editorial">editorial</li>
-      </ul>
-      <a class="project-link" href="#project-colorpass" aria-label="View details for Feature Color Pass">View project →</a>
-    </article>
+      <article class="project-card" aria-labelledby="proj-colorpass-title" data-tags="editorial,commission">
+        <a href="#project-colorpass" class="card-hit" aria-hidden="true" tabindex="-1"></a>
+        <figure>
+          <img src="https://placehold.co/480x270?text=X"
+            alt="Editorial feature spread with layered color treatments"
+            loading="lazy" width="480" height="270">
+        </figure>
+        <h3 id="proj-colorpass-title">Feature Color Pass</h3>
+        <p>Layered color + texture system unifying a multi-spread feature into a coherent arc.</p>
+        <ul class="role-tags">
+          <li class="tag tag--editorial">editorial</li>
+        </ul>
+        <a class="project-link" href="#project-colorpass" aria-label="View details for Feature Color Pass">View project →</a>
+      </article>
     </section>
 
     <!-- Process -->
@@ -1215,13 +347,116 @@ footer a { color: inherit; }
       </ol>
     </section>
 
+    <!-- Capabilities -->
+     <section id="capabilities" aria-labelledby="capabilities-header">
+      <h2 id="capabilities-header">Capabilities</h2>
+      <p class="cap-intro">
+        A <strong>diffusion designer</strong> combines art direction, narrative strategy, and automation‑first image synthesis to deliver brand‑faithful visuals at speed. Drawing on an MFA in Digital Media (RISD) and a PgDip in Creative Writing (Birkbeck), this practice unites rigorous visual R&amp;D with clear, persuasive communication—equally comfortable in editorial, advertising, and experiential contexts.
+      </p>
+
+      <div class="cap-grid" role="list">
+        <!-- Core Creative Capabilities -->
+        <article class="cap-block" role="listitem">
+          <div class="cap-media">
+            <img src="https://placehold.co/800x400?text=Creative"
+                 alt="Collage of concept sketches, tonal studies, and styled visual frames"
+                 loading="lazy" width="800" height="400">
+          </div>
+          <h3>Core Creative Capabilities</h3>
+          <ul class="cap-list">
+            <li><strong>Concept development & narrative strategy:</strong><br>Translates briefs into coherent story worlds, themes, and stylistic guardrails; frames concepts with treatments, loglines, and visual metaphors aligned to brand voice & campaign objectives.</li>
+            <li><strong>Visual R&amp;D with diffusion systems:</strong><br>Explores composition, light, color, and material language via controlled promptcraft, seed mapping, and parameter sweeps; builds variant matrices that chart range without idea drift.</li>
+            <li><strong>Art direction & stylistic fidelity:</strong><br>Creates reference‑informed lookbooks & style bibles; enforces consistency through controlled inputs (prompts, negatives, samplers) & curated model selections.</li>
+            <li><strong>Editorial & campaign fluency:</strong><br>Designs covers, feature spreads, OOH & social variants with hierarchy, pacing, legibility; integrates copy / CTA placements without diluting visual intent.</li>
+            <li><strong>Advanced compositing & finishing:</strong><br>Precise masking, plate cleanup, generative extension, relighting, nuanced grading; balances painterly and photoreal modes & preserves edge integrity at large formats.</li>
+            <li><strong>Color management & output fidelity:</strong><br>Calibrated workflows, ICC soft‑proofing, optimized web/sRGB delivery; predictable color across substrates & devices.</li>
+            <li><strong>Writing for clarity & persuasion:</strong><br>Briefs, rationales, proposals, and user docs; injects narrative coherence so teams execute with confidence.</li>
+          </ul>
+          <p class="cap-meta">Creative</p>
+        </article>
+
+        <!-- Automation-first Pipeline Engineering -->
+        <article class="cap-block" role="listitem">
+          <div class="cap-media">
+            <img src="https://placehold.co/800x400?text=Automation"
+                 alt="Workflow graph nodes and batch generation panels representing automation pipeline"
+                 loading="lazy" width="800" height="400">
+          </div>
+          <h3>Automation‑First Pipeline Engineering</h3>
+          <ul class="cap-list">
+            <li><strong>Modular workflows:</strong><br>Reusable, parameterized Stable Diffusion / ComfyUI graphs enabling rapid branching & controlled randomness.</li>
+            <li><strong>Reproducibility & audit trails:</strong><br>Captures seeds, prompts, model hashes & metadata directly in assets; layered PSDs with smart objects & non‑destructive adjustments.</li>
+            <li><strong>Batch production & coverage:</strong><br>Automated aspect adaptations, padding, generative fill; permutation tests maximize market / language / placement coverage.</li>
+            <li><strong>Toolchain integration:</strong><br>Bridges Photoshop scripting, AutoHotkey & metadata utilities; aligns with Figma / Adobe CC libraries & CMS needs.</li>
+            <li><strong>Performance & reliability:</strong><br>Anticipates edge cases, designs graceful degradation & recovery; automated quality checks (resolution, color space, safe areas).</li>
+          </ul>
+          <p class="cap-meta">Pipelines</p>
+        </article>
+
+        <!-- Deliverables & Outcomes -->
+        <article class="cap-block" role="listitem">
+          <div class="cap-media">
+            <img src="https://placehold.co/800x400?text=Outcomes"
+                 alt="Export panels and layered file thumbnails illustrating packaged deliverables"
+                 loading="lazy" width="800" height="400">
+          </div>
+          <h3>Deliverables & Outcomes</h3>
+          <ul class="cap-list">
+            <li><strong>Creative strategy artifacts:</strong><br>Briefs, visual territories, style guides & reference boards that align stakeholders early, reducing churn.</li>
+            <li><strong>Exploration assets:</strong><br>Variant grids, seed maps & promptbooks documenting decision paths and enabling fast pivots.</li>
+            <li><strong>Production‑ready files:</strong><br>Layered PSD/PSB, vector assets, export‑ready crops for print, web & social.</li>
+            <li><strong>Automation assets:</strong><br>Scripts, actions & portable node graphs empowering internal scaling.</li>
+            <li><strong>Documentation & training:</strong><br>User‑focused playbooks, concise release notes, clear change rationale.</li>
+            <li><strong>Quality & speed gains:</strong><br>Reduced time‑to‑first‑visual, higher variants/hour, improved brand consistency (tracked KPIs).</li>
+          </ul>
+          <p class="cap-meta">Outcomes</p>
+        </article>
+
+        <!-- Process & Collaboration -->
+        <article class="cap-block" role="listitem">
+          <div class="cap-media">
+            <img src="https://placehold.co/800x400?text=Collaboration"
+                 alt="Team review session mockup with annotated frames and shared notes"
+                 loading="lazy" width="800" height="400">
+          </div>
+          <h3>Process & Collaboration</h3>
+          <ul class="cap-list">
+            <li><strong>Discovery:</strong><br>Align on goals, constraints, brand voice, risk tolerance & success metrics; surface narrative/visual opportunity intersections.</li>
+            <li><strong>R&amp;D sprints:</strong><br>Build look tests, stress edge cases (odd aspect ratios, extreme crops), lock guardrails with stakeholders.</li>
+            <li><strong>Production:</strong><br>Iterate in short cycles with milestone reviews; maintain lineage so approvals remain stable.</li>
+            <li><strong>Finishing & proofing:</strong><br>Compositing, grading, typographic integration; soft‑proof, device test, run accessibility & legibility checks.</li>
+            <li><strong>Handover & support:</strong><br>Package assets, automation, docs; onboard teams & remain on‑call for optimization.</li>
+          </ul>
+          <p class="cap-meta">Collaboration</p>
+        </article>
+
+        <!-- Quality / Ethics / Risk -->
+        <article class="cap-block" role="listitem">
+          <div class="cap-media">
+            <img src="https://placehold.co/800x400?text=Standards"
+                 alt="Checklist and shield icon montage representing quality, ethics and risk controls"
+                 loading="lazy" width="800" height="400">
+          </div>
+          <h3>Quality, Ethics & Risk</h3>
+          <ul class="cap-list">
+            <li><strong>IP diligence & licensing:</strong><br>Uses sources & models respecting creator rights and client policy; maintains provenance records.</li>
+            <li><strong>Bias & representation checks:</strong><br>Reviews outputs for stereotyping; ensures inclusive, contextually appropriate depiction.</li>
+            <li><strong>Accessibility & legibility:</strong><br>Validates color contrast, type sizing & layout clarity across placements.</li>
+            <li><strong>Security & privacy:</strong><br>Supports controlled / on‑prem environments; minimizes sensitive prompt/reference exposure.</li>
+            <li><strong>Traceability & compliance:</strong><br>Preserves reproducible pipelines & audit logs for governance needs.</li>
+          </ul>
+          <p class="cap-meta">Standards</p>
+        </article>
+      </div>
+    </section>
+
   </main>
 
   <footer>
     &copy; <span id="year"></span> Saul Plastik. All rights reserved.
   </footer>
 
-  <script>
+  <script defer>
     // Update year automatically
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>

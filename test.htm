@@ -1,0 +1,608 @@
+**Crafting HTML Layout**
+
+Alright, the user wants a solid, clean design with a focus on performance. That means no external fonts and leveraging system fonts. I should also include support for dark mode and reduced motion for accessibility. I’ll keep the layout simple with easy-to-read sections, like a hero section, sticky navbar, and grids for key strengths and automation features. Headings should be in sentence case, and I’ll highlight important areas using CSS with subtle accents. There shouldn’t be any redundant repetition, and I can skip emojis. Now, I’ll start putting together the HTML.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diffusion Designer Capabilities</title>
+  <style>
+    :root{
+      --bg: #0f1115;
+      --panel: #141821;
+      --muted: #8e96a3;
+      --text: #e6eaf0;
+      --accent: #6cd4ff;
+      --accent-2: #c2f970;
+      --stroke: #1f2530;
+      --good: #8ef6b1;
+      --warn: #ffd166;
+      --bad: #ff7b7b;
+      --maxw: 1160px;
+      --radius: 14px;
+      --gap: 14px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35), 0 2px 10px rgba(0,0,0,.2);
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg: #f6f8fb;
+        --panel: #ffffff;
+        --muted: #5b6676;
+        --text: #18202b;
+        --accent: #0b84ff;
+        --accent-2: #12b886;
+        --stroke: #e8edf3;
+        --shadow: 0 10px 30px rgba(16,43,76,.08), 0 2px 10px rgba(16,43,76,.06);
+      }
+    }
+    *{ box-sizing: border-box }
+    html,body{ height:100% }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 15% -10%, rgba(108,212,255,.08), transparent 60%),
+                  radial-gradient(1000px 700px at 85% -20%, rgba(194,249,112,.08), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a{ color: var(--accent); text-decoration: none }
+    a:hover{ text-decoration: underline }
+    .wrap{ width: min(100%, var(--maxw)); margin-inline: auto; padding: 20px }
+    header.hero{
+      position: relative;
+      padding: clamp(28px, 4vw, 56px) 0;
+    }
+    .hero-inner{
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: clamp(16px, 3vw, 28px);
+      align-items: start;
+    }
+    @media (max-width: 880px){ .hero-inner{ grid-template-columns: 1fr } }
+    .title{
+      font-size: clamp(28px, 4.4vw, 46px);
+      line-height: 1.1;
+      margin: 0 0 8px 0;
+      letter-spacing: .2px;
+    }
+    .subtitle{
+      font-size: clamp(16px, 1.6vw, 18px);
+      color: var(--muted);
+      margin: 6px 0 0 0;
+    }
+    .badge-row{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px }
+    .badge{
+      border: 1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.02));
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)), var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .callout{
+      padding: 16px 16px;
+      display: grid;
+      gap: 10px;
+    }
+    .callout .row{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
+    .callout .chip{
+      background: rgba(108,212,255,.12);
+      color: var(--text);
+      border: 1px solid rgba(108,212,255,.35);
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+    nav.sticky{
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(10px);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      border-bottom: 1px solid var(--stroke);
+    }
+    .tabs{
+      display: flex; gap: 8px; overflow: auto; padding: 10px 0;
+    }
+    .tab{
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--stroke);
+      background: var(--panel);
+      padding: 10px 12px;
+      border-radius: 10px;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+    .tab:hover{ outline: 2px solid color-mix(in srgb, var(--accent) 40%, transparent) }
+    .tag{ font-size: 11px; color: var(--muted); border-left: 1px solid var(--stroke); padding-left: 10px; margin-left: 6px }
+    section{ padding: clamp(18px, 3vw, 26px) 0 }
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gap);
+    }
+    .card{
+      grid-column: span 4;
+      display: flex; flex-direction: column; gap: 10px;
+      padding: 16px;
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: clip;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset: 0 0 auto 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+    .card h3, .panel h3{
+      font-size: 18px; margin: 2px 0 2px 0; letter-spacing: .2px;
+    }
+    .card p{ margin: 0; color: var(--muted) }
+    .kicker{
+      font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+    }
+    .lead{
+      font-size: clamp(16px, 1.8vw, 18px);
+      color: var(--text);
+      margin: 8px 0 4px 0;
+    }
+    .cols-3 > .card{ grid-column: span 4 }
+    .cols-2 > .card{ grid-column: span 6 }
+    .cols-1 > .card{ grid-column: 1 / -1 }
+    @media (max-width: 980px){
+      .card{ grid-column: span 6 }
+    }
+    @media (max-width: 640px){
+      .card{ grid-column: 1 / -1 }
+      .callout .row{ grid-template-columns: 1fr }
+    }
+    .list{
+      margin: 0; padding-left: 18px; color: var(--text);
+      display: grid; gap: 8px;
+    }
+    .list li{ padding-left: 2px }
+    .list strong{ color: var(--text) }
+    .metrics{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      margin-top: 8px;
+    }
+    .metric{
+      border: 1px dashed var(--stroke);
+      border-radius: 10px;
+      padding: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02));
+    }
+    .metric .label{ color: var(--muted); font-size: 12px }
+    .metric .value{ font-size: 16px; margin-top: 4px }
+    .timeline{
+      position: relative;
+      display: grid; gap: 12px;
+    }
+    .step{
+      display: grid; gap: 8px;
+      padding: 14px 16px 14px 52px;
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .step .num{
+      position: absolute; left: 14px; top: 14px;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent-2));
+      color: #0a0d12; font-weight: 700; font-size: 14px; border: 1px solid rgba(0,0,0,.15);
+    }
+    .pill{
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--stroke);
+      background: var(--panel);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .icon{
+      width: 16px; height: 16px; display: inline-block; vertical-align: -3px;
+    }
+    .footer{
+      display: grid; gap: 12px;
+      padding: 18px;
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)),
+        radial-gradient(600px 180px at 20% 0%, rgba(108,212,255,.10), transparent 60%),
+        radial-gradient(600px 180px at 80% 0%, rgba(194,249,112,.12), transparent 60%),
+        var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .cta{
+      display: inline-flex; gap: 10px; align-items: center;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--stroke));
+      background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 14%, var(--panel)), var(--panel));
+      padding: 10px 14px; border-radius: 12px; color: var(--text); text-decoration: none; font-weight: 600;
+    }
+    .cta:hover{ outline: 2px solid color-mix(in srgb, var(--accent) 35%, transparent) }
+    hr.sep{
+      border: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--stroke), transparent);
+      margin: 24px 0;
+    }
+    @media (prefers-reduced-motion: no-preference){
+      .card, .step, .metric{ transition: transform .18s ease, box-shadow .18s ease }
+      .card:hover, .step:hover, .metric:hover{ transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,.35) }
+    }
+    @media print{
+      nav.sticky{ display: none }
+      body{ background: #fff; color: #000 }
+      .panel, .card, .footer{ box-shadow: none }
+      a{ color: #000; text-decoration: underline }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker">Diffusion designer capabilities</div>
+          <h1 class="title">Art direction, narrative strategy, and automation-first image synthesis</h1>
+          <p class="lead">A practice that fuses visual R&amp;D with persuasive communication—grounded in RISD MFA (Digital Media) and Birkbeck PgDip (Creative Writing)—to deliver brand-faithful visuals at speed.</p>
+          <p class="subtitle">Equally at home in editorial, advertising, and experiential contexts, with reproducible pipelines, transparent handoffs, and measurable outcomes.</p>
+          <div class="badge-row" aria-label="Qualifications">
+            <span class="badge">RISD MFA · Digital Media</span>
+            <span class="badge">Birkbeck PgDip · Creative Writing</span>
+            <span class="badge">Color management &amp; output fidelity</span>
+            <span class="badge">Automation-ready workflows</span>
+          </div>
+        </div>
+        <aside class="panel callout" aria-label="Highlights">
+          <div class="kicker">Highlights</div>
+          <div class="row">
+            <div class="chip">Rapid concept-to-first-visual with documented lineage</div>
+            <div class="chip">Variant matrices without creative drift</div>
+            <div class="chip">Non-destructive files for seamless handoff</div>
+            <div class="chip">Calibrated color across print and digital</div>
+          </div>
+          <div class="metrics" aria-label="Outcomes">
+            <div class="metric">
+              <div class="label">Coverage</div>
+              <div class="value">Multi-ratio, multi-platform deliverables from one source</div>
+            </div>
+            <div class="metric">
+              <div class="label">Consistency</div>
+              <div class="value">Style control via prompts, seeds, and curated models</div>
+            </div>
+            <div class="metric">
+              <div class="label">Traceability</div>
+              <div class="value">Seeds, hashes, and metadata embedded in assets</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <nav class="sticky">
+      <div class="wrap" style="padding-block: 8px">
+        <div class="tabs" role="tablist" aria-label="Sections">
+          <a class="tab" href="#core">Core capabilities <span class="tag">Creative</span></a>
+          <a class="tab" href="#automation">Automation pipeline <span class="tag">Engineering</span></a>
+          <a class="tab" href="#deliverables">Deliverables <span class="tag">Outcomes</span></a>
+          <a class="tab" href="#process">Process <span class="tag">Collaboration</span></a>
+          <a class="tab" href="#quality">Quality &amp; risk <span class="tag">Assurance</span></a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section id="core" aria-labelledby="core-h">
+        <div class="kicker">Core creative capabilities</div>
+        <h2 id="core-h" style="margin-top:6px">From narrative to finished art with stylistic fidelity</h2>
+        <div class="grid cols-3" style="margin-top: 12px">
+          <article class="card">
+            <h3>Concept development and narrative strategy</h3>
+            <p>Translate briefs into story worlds, themes, and stylistic guardrails; articulate treatments, loglines, and visual metaphors aligned with brand voice and campaign goals.</p>
+            <ul class="list">
+              <li><strong>Clarity:</strong> Rationale decks that align stakeholders early.</li>
+              <li><strong>Continuity:</strong> Narrative through-lines across asset sets.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Visual research and diffusion exploration</h3>
+            <p>Interrogate composition, light, color, and material language via controlled promptcraft, seeds, and parameter sweeps; produce variant matrices without losing the core idea.</p>
+            <ul class="list">
+              <li><strong>Range:</strong> Painterly, graphic, surreal, and photoreal modes.</li>
+              <li><strong>Control:</strong> Curated model selection and negatives for drift management.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Art direction and stylistic fidelity</h3>
+            <p>Establish reference-informed lookbooks and style bibles; enforce consistency through inputs and validated checkpoints to maintain brand integrity.</p>
+            <ul class="list">
+              <li><strong>Guardrails:</strong> Style tokens and do/don’t examples.</li>
+              <li><strong>Continuity packs:</strong> Reusable palettes and motif sets.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Editorial and campaign fluency</h3>
+            <p>Design covers, feature spreads, OOH, and social variants with hierarchy and legibility; integrate copy and CTAs without compromising visual intent.</p>
+            <ul class="list">
+              <li><strong>Pacing:</strong> Multi-image sequences with narrative rhythm.</li>
+              <li><strong>Placement:</strong> Safe areas for typography and logos.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Advanced compositing and finishing</h3>
+            <p>Execute masking, plate cleanup, generative extension, relighting, and color grading; preserve edge integrity for large formats.</p>
+            <ul class="list">
+              <li><strong>Non-destructive:</strong> Smart objects and procedural masks.</li>
+              <li><strong>Relight:</strong> Cohesive mood across composites.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Color management and output fidelity</h3>
+            <p>Work on calibrated displays with ICC profiles; soft-proof for print, validate for web/sRGB, and check across devices for predictable color.</p>
+            <ul class="list">
+              <li><strong>Proofing:</strong> Substrates and lighting conditions considered.</li>
+              <li><strong>Compliance:</strong> Export presets for vendor specs.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Writing for clarity and persuasion</h3>
+            <p>Craft briefs, proposals, and user-focused documentation; weave narrative coherence into interactive and software-driven projects so teams can execute with confidence.</p>
+            <ul class="list">
+              <li><strong>Documentation:</strong> Playbooks that reduce rework.</li>
+              <li><strong>Tone:</strong> Brand-aligned copy supports visuals.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <hr class="sep" />
+
+      <section id="automation" aria-labelledby="automation-h">
+        <div class="kicker">Automation-first pipeline engineering</div>
+        <h2 id="automation-h" style="margin-top:6px">Reusable systems for speed, scale, and traceability</h2>
+        <div class="grid cols-3" style="margin-top: 12px">
+          <article class="card">
+            <h3>Modular workflows</h3>
+            <p>Reusable, parameterized pipelines for Stable Diffusion that support rapid branching, controlled randomness, and safe rollbacks.</p>
+            <ul class="list">
+              <li><strong>Branches:</strong> Named variations for quick A/B paths.</li>
+              <li><strong>Rollback:</strong> Seed and prompt checkpoints.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Reproducibility and audit trails</h3>
+            <p>Capture seeds, prompts, model hashes, and processing metadata directly into assets for transparent decision-making.</p>
+            <ul class="list">
+              <li><strong>Embedded:</strong> Metadata written into files.</li>
+              <li><strong>Lineage:</strong> Versioned assets with change notes.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Batch production and coverage</h3>
+            <p>Automate aspect-ratio adaptations, canvas padding, and generative fill; run permutation tests to cover markets and placements.</p>
+            <ul class="list">
+              <li><strong>Ratios:</strong> 1:1, 4:5, 16:9, and non-standard canvases.</li>
+              <li><strong>Permutations:</strong> Copy, language, and colorways.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Toolchain integration</h3>
+            <p>Bridge Photoshop scripting, hotkeys, and metadata utilities; align with design libraries and CMS for downstream teams.</p>
+            <ul class="list">
+              <li><strong>One-click ops:</strong> Repeatable actions and scripts.</li>
+              <li><strong>Library sync:</strong> Shared components across teams.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Performance and reliability</h3>
+            <p>Anticipate edge cases, design recovery paths, and validate outputs with automated checks for resolution, color space, and safe areas.</p>
+            <ul class="list">
+              <li><strong>Health checks:</strong> Preflight before delivery.</li>
+              <li><strong>Graceful degrade:</strong> Paths under tight timelines.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Documentation and training</h3>
+            <p>Clear playbooks, annotated graphs, and short guides that enable internal teams to operate and evolve the pipeline.</p>
+            <ul class="list">
+              <li><strong>Onboarding:</strong> Quick-start packs for teams.</li>
+              <li><strong>Handover:</strong> Checklists and owner mapping.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <hr class="sep" />
+
+      <section id="deliverables" aria-labelledby="deliverables-h">
+        <div class="kicker">Deliverables and measurable outcomes</div>
+        <h2 id="deliverables-h" style="margin-top:6px">Artifacts that reduce churn and increase confidence</h2>
+        <div class="grid cols-3" style="margin-top: 12px">
+          <article class="card">
+            <h3>Creative strategy artifacts</h3>
+            <p>Briefs, visual territories, style guides, and reference boards that align stakeholders and accelerate approvals.</p>
+            <ul class="list">
+              <li><strong>Alignment:</strong> Early convergence on look and tone.</li>
+              <li><strong>Reuse:</strong> Style kits for future campaigns.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Exploration assets</h3>
+            <p>Variant grids, seed maps, and promptbooks documenting decision paths to unlock fast pivots without creative drift.</p>
+            <ul class="list">
+              <li><strong>Trace:</strong> Why a route was chosen or parked.</li>
+              <li><strong>Pivot:</strong> Resume any path with fidelity.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Production-ready files</h3>
+            <p>Layered PSD/PSB with masks and smart objects, vectors where appropriate, and export-ready crops for print, web, and social.</p>
+            <ul class="list">
+              <li><strong>Hand-off:</strong> Zero-guess packaging.</li>
+              <li><strong>Compliance:</strong> Vendor-spec exports.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Automation assets</h3>
+            <p>Reusable scripts, actions, and portable node graphs tailored to the project, enabling teams to scale production confidently.</p>
+            <ul class="list">
+              <li><strong>Portability:</strong> Self-contained starter kits.</li>
+              <li><strong>Scale:</strong> Batch-friendly operations.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Documentation and training</h3>
+            <p>User-focused playbooks, concise release notes, and training sessions to embed the pipeline internally.</p>
+            <ul class="list">
+              <li><strong>Self-serve:</strong> Teams operate without friction.</li>
+              <li><strong>Continuity:</strong> Knowledge survives turnover.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Quality and speed gains</h3>
+            <p>Reduced time-to-first-visual, higher variant throughput, and improved brand consistency—tracked with agreed KPIs.</p>
+            <ul class="list">
+              <li><strong>KPIs:</strong> Define targets and report cadence.</li>
+              <li><strong>Evidence:</strong> Before/after comparisons.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <hr class="sep" />
+
+      <section id="process" aria-labelledby="process-h">
+        <div class="kicker">Process and collaboration</div>
+        <h2 id="process-h" style="margin-top:6px">Short, decisive loops with transparent decision-making</h2>
+        <div class="timeline" style="margin-top: 12px">
+          <div class="step">
+            <div class="num">1</div>
+            <h3>Discovery</h3>
+            <p>Align on goals, constraints, brand voice, risk tolerances, and success metrics; identify narrative and visual opportunities.</p>
+            <span class="pill">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 2a9 9 0 1 0 9 9h2a11 11 0 1 1-11-11v2zM12 6v7l6 3-.9 1.8L10 14V6h2z"/></svg>
+              <span>Brief synthesis</span>
+            </span>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <h3>R&amp;D sprints</h3>
+            <p>Build look tests, stress-test edge cases (non-standard ratios, extreme crops), and lock creative guardrails with stakeholders.</p>
+            <span class="pill">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 3h18v2H3zM3 19h18v2H3zM5 7h14v10H5z"/></svg>
+              <span>Variant matrices</span>
+            </span>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <h3>Production</h3>
+            <p>Iterate in short cycles with milestone reviews; maintain lineage tracking so approvals remain stable as assets evolve.</p>
+            <span class="pill">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg>
+              <span>Batch coverage</span>
+            </span>
+          </div>
+          <div class="step">
+            <div class="num">4</div>
+            <h3>Finishing and proofing</h3>
+            <p>Execute compositing, grading, and typographic integration; soft-proof and device-test; run accessibility and legibility checks.</p>
+            <span class="pill">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5c7 0 11 7 11 7s-4 7-11 7S1 12 1 12s4-7 11-7zm0 2C7.5 7 4.3 10.9 3.4 12c.9 1.1 4.1 5 8.6 5s7.7-3.9 8.6-5C19.7 10.9 16.5 7 12 7zm0 2a3 3 0 110 6 3 3 0 010-6z"/></svg>
+              <span>Soft-proofing</span>
+            </span>
+          </div>
+          <div class="step">
+            <div class="num">5</div>
+            <h3>Handover and support</h3>
+            <p>Deliver packaged assets, automation, and documentation; train internal teams and remain available for deployment and optimization.</p>
+            <span class="pill">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-7V4l-5 4 5 4V9h7zM4 13h2v7H4zM8 11h2v9H8zM12 15h2v5h-2zM16 9h2v11h-2z"/></svg>
+              <span>Playbooks</span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <hr class="sep" />
+
+      <section id="quality" aria-labelledby="quality-h">
+        <div class="kicker">Quality, ethics, and risk management</div>
+        <h2 id="quality-h" style="margin-top:6px">Standards that protect brand, audiences, and teams</h2>
+        <div class="grid cols-2" style="margin-top: 12px">
+          <article class="card">
+            <h3>IP diligence and licensing</h3>
+            <p>Use models and sources that respect creator rights and client policies; maintain provenance records and usage mappings.</p>
+            <ul class="list">
+              <li><strong>Provenance:</strong> Source logs and model hashes retained.</li>
+              <li><strong>Policy fit:</strong> Align to brand and legal requirements.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Bias, representation, and accessibility</h3>
+            <p>Review outputs for stereotyping; validate color contrast, type sizing, and layout clarity across placements.</p>
+            <ul class="list">
+              <li><strong>Review gates:</strong> Inclusive depiction checks.</li>
+              <li><strong>Legibility:</strong> Real-world viewing conditions tested.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Security and privacy</h3>
+            <p>Support controlled environments when needed; minimize sensitive data exposure in prompts and references.</p>
+            <ul class="list">
+              <li><strong>Containment:</strong> On-prem and access scoping options.</li>
+              <li><strong>Redaction:</strong> Sensitive data stripped from logs.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Traceability and compliance</h3>
+            <p>Preserve reproducible pipelines and audit logs to satisfy legal, brand, and production governance requirements.</p>
+            <ul class="list">
+              <li><strong>Audits:</strong> Exportable lineage and decisions.</li>
+              <li><strong>Change control:</strong> Versioned approvals trail.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section aria-label="Call to action">
+        <div class="footer">
+          <div class="kicker">Next step</div>
+          <h2 style="margin:4px 0">Request a focused proof‑of‑concept</h2>
+          <p class="lead">Share your goals and constraints. You’ll receive a tailored pipeline proposal, sample timeline, and a small working demo that evidences speed, fidelity, and handoff quality.</p>
+          <div style="display:flex; gap: 10px; flex-wrap: wrap">
+            <a class="cta" href="#contact">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 4h20v14H6l-4 4V4zm4 4v2h12V8H6zm0 4v2h8v-2H6z"/></svg>
+              Start a brief
+            </a>
+            <a class="cta" href="#samples">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v2H4zM4 8h10v2H4zM4 12h16v2H4zM4 16h10v2H4z"/></svg>
+              See sample artifacts
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer style="opacity:.8; font-size: 12px; color: var(--muted); padding: 24px 0 12px">
+      <div>Education: RISD MFA (Digital Media) · Birkbeck PgDip (Creative Writing). Practice spans editorial, advertising, and experiential media with automation-ready pipelines and rigorous documentation.</div>
+    </footer>
+  </div>
+</body>
+</html>
+```
