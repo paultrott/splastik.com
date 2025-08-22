@@ -42,15 +42,15 @@
 
   /* === Typography Scale (responsive) ==================================== */
   /* Sizes: adjust clamp values here to re-theme all typography site-wide */
-  --font-size-2xs: clamp(0.60rem, 0.55rem + 0.25vw, 0.70rem);  /* badges, meta */
-  --font-size-xs:  clamp(0.70rem, 0.62rem + 0.35vw, 0.80rem);  /* captions */
-  --font-size-sm:  clamp(0.80rem, 0.72rem + 0.40vw, 0.90rem);  /* small UI */
-  --font-size-base: clamp(0.94rem, 0.86rem + 0.45vw, 1.00rem); /* body */
-  --font-size-md:  clamp(1.00rem, 0.92rem + 0.55vw, 1.15rem);  /* card titles */
-  --font-size-lg:  clamp(1.15rem, 1.00rem + 0.90vw, 1.40rem);  /* subsection / tagline */
-  --font-size-xl:  clamp(1.40rem, 1.15rem + 1.5vw, 1.90rem);   /* section headings */
-  --font-size-2xl: clamp(1.85rem, 1.50rem + 2.2vw, 2.65rem);   /* large headings */
-  --font-size-3xl: clamp(2.40rem, 1.90rem + 3.2vw, 3.25rem);   /* hero headline */
+  --font-size-2xs: 1rem;  /* badges, meta */
+  --font-size-xs:  1rem;  /* captions */
+  --font-size-sm:  1rem;  /* small UI */
+  --font-size-base: 1rem; /* body */
+  --font-size-md:  1.2rem;  /* card titles */
+  --font-size-lg:  1.4rem;  /* subsection / tagline */
+  --font-size-xl:  1.9rem;   /* section headings */
+  --font-size-2xl: 2.65rem;   /* large headings */
+  --font-size-3xl: 3.25rem;   /* hero headline */
 
   /* Line heights (apply consistently) */
   --lh-tight: 1.1;
@@ -68,13 +68,16 @@
   --ls-tight: -0.015em;
   --ls-normal: 0;
   --ls-wide: 0.05em;
+
+  /* Unified bullet system */
+  --bullet-size: 7px;
+  --bullet-color: var(--color-accent);
+  --bullet-ring: color-mix(in srgb, var(--color-accent) 35%, transparent);
 }
 
 /* Light scheme can keep same scale – only override colors if needed */
 @media (prefers-color-scheme: light) {
-  :root {
-    /* color overrides only ... (no font var duplication) */
-  }
+  /* Light theme: add color overrides here if/when needed (kept intentionally empty previously). */
 }
 
 /* === Global Base ======================================================== */
@@ -92,6 +95,7 @@ body {
   max-width: 100vw;
   overflow-x: clip;
 }
+
 
 /* === Accessibility / Utility ========================================= */
 .skip-link {
@@ -145,6 +149,7 @@ h3 {
   font-weight: var(--fw-semibold);
   margin: 0 0 0.55em;
 }
+
 
 /* Section specific overrides (if needed) */
 #portfolio,
@@ -286,7 +291,7 @@ header[role="banner"]::before {
   max-width: 1320px;
   margin: 0 auto;
   display: grid;
-  gap: clamp(1.5rem, 4vw, 3rem);
+  gap: 2rem;
 }
 
 /* .branding {
@@ -803,6 +808,42 @@ footer a { color: inherit; }
   line-height: 1.4;
 }
 
+/* === Unified Bullet Styling (Process + Capabilities) ==================== */
+/* Replace default list markers with consistent accent bullets */
+.process-detail, .process-detail ul, .cap-list {
+  list-style: none;
+}
+
+.process-detail > li,
+.process-detail ul > li,
+.cap-list li {
+  position: relative;
+  padding-left: 1.15rem; /* space for custom bullet */
+}
+
+.process-detail > li::before,
+.process-detail ul > li::before,
+.cap-list li::before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.85em; /* approximate vertical center */
+  width: var(--bullet-size);
+  height: var(--bullet-size);
+  border-radius: 50%;
+  background: var(--bullet-color);
+  box-shadow: 0 0 0 2px var(--bullet-ring);
+  transform: translateY(-50%);
+}
+
+@media (prefers-color-scheme: light) {
+  .process-detail > li::before,
+  .process-detail ul > li::before,
+  .cap-list li::before {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--bullet-color) 25%, transparent);
+  }
+}
+
 .process-note {
   margin: 0.25rem 0 0;
   font-size: 0.7rem;
@@ -1063,17 +1104,6 @@ footer a { color: inherit; }
   color: var(--color-text-muted);
 }
 
-.cap-list li::before {
-  content: "";
-  position: absolute;
-  left: 0.35rem;
-  top: 0.55rem;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, var(--color-accent), color-mix(in srgb, var(--color-accent) 35%, transparent));
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.08);
-}
 
 .cap-list li strong {
   color: var(--color-text);
