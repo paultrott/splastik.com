@@ -40,6 +40,17 @@
   --tag-illustration: #ffcd2e;
   --tag-training: #4caf50;
 
+  /* Social brand accents */
+  --brand-tiktok: #fe2c55;
+  --brand-x: #f5f7fa; /* neutral for X */
+  --brand-instagram-1: #f09433;
+  --brand-instagram-2: #e6683c;
+  --brand-instagram-3: #dc2743;
+  --brand-instagram-4: #cc2366;
+  --brand-instagram-5: #bc1888;
+  --brand-linkedin: #0a66c2;
+  --brand-behance: #1769ff;
+
   /* === Typography Scale (responsive) ==================================== */
   /* Sizes: adjust clamp values here to re-theme all typography site-wide */
   --font-size-2xs: 1rem;  /* badges, meta */
@@ -423,7 +434,7 @@ header[role="banner"]::before {
 }
 .value-item p {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm);
   line-height: 1.4;
 }
 
@@ -489,6 +500,207 @@ footer {
   color: var(--color-text-muted);
 }
 footer a { color: inherit; }
+
+/* === 8. Social Section ================================================== */
+#social {
+  margin-top: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+#social-header {
+  margin: 0 0 0.6rem;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  font-weight: 650;
+}
+
+.social-tagline {
+  margin: 0 0 1rem;
+  font-size: clamp(0.85rem, 0.4vw + 0.8rem, 0.98rem);
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+/* Marquee ticker */
+.social-ticker {
+  --h: 36px;
+  height: var(--h);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015)) var(--color-surface);
+  overflow: hidden;
+  box-shadow: var(--shadow-elev);
+  position: relative;
+  mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+}
+
+.social-ticker__track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  white-space: nowrap;
+  padding-inline: 1rem;
+  animation: none;
+}
+.social-ticker__track span {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--color-text) 80%, transparent);
+  opacity: 0.6;
+  /* Highlight flash animation: durations/delays randomized via CSS vars */
+  animation: ticker-flash var(--flash-dur, 6s) ease-in-out var(--flash-delay, 0s) infinite alternate;
+}
+@keyframes ticker-move {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Accent flash to draw attention periodically */
+@keyframes ticker-flash {
+  0%   { opacity: 0.35; color: color-mix(in srgb, var(--color-text) 60%, transparent); text-shadow: none; }
+  25%  { opacity: 0.8;  }
+  50%  { opacity: 1;    color: var(--color-accent); text-shadow: 0 0 0.6rem color-mix(in srgb, var(--color-accent) 55%, transparent); }
+  75%  { opacity: 0.85; }
+  100% { opacity: 0.35; color: color-mix(in srgb, var(--color-text) 60%, transparent); text-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-ticker__track { animation: none; }
+  .social-ticker__track span { animation: none; }
+}
+
+/* Explicit opt-in to motion even if user has reduced-motion enabled */
+.social-ticker[data-allow-motion="true"] .social-ticker__track { animation: none; }
+.social-ticker[data-allow-motion="true"] .social-ticker__track span {
+  animation: ticker-flash var(--flash-dur, 6s) ease-in-out var(--flash-delay, 0s) infinite alternate;
+}
+
+/* Grid of social links */
+.social-grid {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(0.85rem, 1.8vw, 1.25rem);
+}
+
+.social-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  transition: border-color var(--transition), background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.social-link {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 0.9rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.social-card:hover,
+.social-card:focus-within {
+  background: var(--card-bg-hover);
+  border-color: var(--card-border-hover);
+  box-shadow: 0 6px 14px -4px rgba(0,0,0,0.55), 0 0 0 1px var(--card-border-hover);
+  transform: translateY(-1px);
+}
+
+.social-chip {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: #111;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05) inset;
+}
+
+.social-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.social-name { font-weight: 650; letter-spacing: 0.2px; }
+.social-desc { color: var(--color-text-muted); font-size: 0.85rem; }
+
+.social-arrow {
+  font-weight: 700;
+  color: var(--color-accent);
+  transition: transform var(--transition);
+}
+.social-card:hover .social-arrow,
+.social-card:focus-within .social-arrow {
+  transform: translate(1px, -1px);
+}
+
+/* Brand accents */
+.social-card.tiktok .social-chip {
+  background: radial-gradient(120% 140% at 18% 18%, #25f4ee 0%, rgba(37,244,238,0.0) 35%),
+              radial-gradient(120% 140% at 82% 82%, var(--brand-tiktok) 0%, rgba(254,44,85,0.0) 40%),
+              #000;
+  border-color: rgba(255,255,255,0.22);
+}
+.social-card.tiktok .social-name { color: #fff; }
+
+.social-card.x .social-chip {
+  background: #000;
+  color: var(--brand-x);
+  border-color: rgba(255,255,255,0.22);
+}
+
+.social-card.instagram .social-chip {
+  background: conic-gradient(from 210deg,
+    var(--brand-instagram-1),
+    var(--brand-instagram-2),
+    var(--brand-instagram-3),
+    var(--brand-instagram-4),
+    var(--brand-instagram-5),
+    var(--brand-instagram-1));
+  color: #fff;
+  border-color: rgba(255,255,255,0.22);
+}
+
+.social-card.linkedin .social-chip {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-linkedin) 85%, #000), #043a74);
+  color: #fff;
+  border-color: rgba(255,255,255,0.22);
+}
+
+.social-card.behance .social-chip {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-behance) 85%, #000), #0f47b3);
+  color: #fff;
+  border-color: rgba(255,255,255,0.22);
+}
+
+/* Focus ring for keyboard users */
+.social-card:focus-within {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: light) {
+  .social-card { border-color: rgba(0,0,0,0.08); }
+  .social-card:hover,
+  .social-card:focus-within {
+    border-color: rgba(0,0,0,0.28);
+  }
+  .social-ticker { border-color: rgba(0,0,0,0.08); }
+}
 
 /* === 7. Portfolio Cards ================================================= */
 #portfolio-grid {
