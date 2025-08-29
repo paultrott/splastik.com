@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Circular Masked Video</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background-color: #111;        /* background to frame the video */
+      display: flex;
+      align-items: center;           /* vertical center */
+      justify-content: center;       /* horizontal center */
+    }
+    video {
+      width: 300px;                   /* adjust as needed */
+      height: 300px;
+      border-radius: 50%;             /* circular mask */
+      object-fit: cover;              /* avoid stretching */
+      overflow: hidden;               /* hide overflowed corners */
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <video src="WanVideo_00004.mp4" autoplay loop muted playsinline></video>
+</body>
+</html>

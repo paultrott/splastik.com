@@ -50,7 +50,41 @@
     <div class="header-inner">
       <div class="branding">
         <div class="logo-stack">
-          <img class="logo" src="SaulPlastik.png" alt="Splastik logo" decoding="async" />
+          <img class="logo" src="SaulPlastik.png" alt="Splastik logo" decoding="async" style="opacity: 0;" />
+           <style>
+            .logo-stack {
+              position: relative;
+              width: 195px;
+              height: 195px;
+              border-radius: 50%;
+              overflow: hidden;
+            }
+            .logo, video {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block;
+            }
+            .logo {
+              z-index: 1;
+              transition: opacity 0.3s ease;
+            }
+            .logo.hide-fallback {
+              opacity: 0;
+            }
+            video {
+              z-index: 2;
+              opacity: 0;
+              transition: opacity 0.3s ease;
+            }
+            video.loaded {
+              opacity: 1;
+            }
+           </style>
+          <video src="WanVideo_00004.mp4" autoplay loop muted playsinline oncanplay="handleVideoReady(this)"></video>
           <p class="logo-caption">Saul Plastik</p>
         </div>
         <div>
@@ -460,7 +494,7 @@
       <h2 id="social-header">Social</h2>
       <p class="social-tagline">Same craft, different cadence. Follow where you scroll.</p>
 
-      <div class="social-ticker" aria-hidden="true" data-allow-motion="true">
+      <!-- <div class="social-ticker" aria-hidden="true" data-allow-motion="true">
         <div class="social-ticker__track">
           <span>TikTok</span>
           <span>•</span>
@@ -492,7 +526,7 @@
           <span>•</span>
           <span>Behance</span>
         </div>
-      </div>
+      </div> -->
 
       <ul class="social-grid" role="list">
         <li class="social-card tiktok" role="listitem">
@@ -554,38 +588,83 @@
   </footer>
 
   <script defer>
+    // Handle video ready state
+    function handleVideoReady(video) {
+      const fallbackImg = video.parentElement.querySelector('.logo');
+      
+      // Check if video is already ready (fast connection/cached)
+      if (video.readyState >= 3) {
+        // Video is already loaded, show it immediately without fallback
+        video.classList.add('loaded');
+        return;
+      }
+      
+      // For slower connections, show fallback first
+      fallbackImg.style.opacity = '1';
+      
+      // Add a small delay to prevent flash on very fast connections
+      setTimeout(() => {
+        video.classList.add('loaded');
+        fallbackImg.classList.add('hide-fallback');
+      }, 100);
+    }
+
+    // Initialize video fallback logic
+    function initVideoFallback() {
+      const video = document.querySelector('video[src="WanVideo_00004.mp4"]');
+      const fallbackImg = document.querySelector('.logo');
+      
+      if (!video || !fallbackImg) return;
+      
+      // Check if video is already loaded (cached/fast connection)
+      if (video.readyState >= 3) {
+        video.classList.add('loaded');
+        fallbackImg.style.opacity = '0';
+      } else {
+        // Show fallback for loading video
+        fallbackImg.style.opacity = '1';
+      }
+    }
+
+    // Run initialization when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initVideoFallback);
+    } else {
+      initVideoFallback();
+    }
+
     // Update year automatically
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Randomize highlight animation timing for social ticker items
-    (function() {
-      const init = () => {
-        const track = document.querySelector('.social-ticker__track');
-        if (!track) return;
-        const items = Array.from(track.querySelectorAll('span'));
-        for (const el of items) {
-          const text = (el.textContent || '').trim();
-          // Skip separators like bullet '•'
-          if (text === '•' || text.length === 0) {
-            el.style.animation = 'none';
-            el.style.opacity = '0.55';
-            continue;
-          }
-          // Duration between 4s and 11s
-          const durSec = +(Math.random() * 7 + 4).toFixed(2);
-          const dur = durSec + 's';
-          // Use a negative delay so animations start mid-cycle for immediate effect
-          const negDelay = -(Math.random() * durSec).toFixed(2) + 's';
-          el.style.setProperty('--flash-dur', dur);
-          el.style.setProperty('--flash-delay', negDelay);
-        }
-      };
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init, { once: true });
-      } else {
-        init();
-      }
-    })();
+    // (function() {
+    //   const init = () => {
+    //     const track = document.querySelector('.social-ticker__track');
+    //     if (!track) return;
+    //     const items = Array.from(track.querySelectorAll('span'));
+    //     for (const el of items) {
+    //       const text = (el.textContent || '').trim();
+    //       // Skip separators like bullet '•'
+    //       if (text === '•' || text.length === 0) {
+    //         el.style.animation = 'none';
+    //         el.style.opacity = '0.55';
+    //         continue;
+    //       }
+    //       // Duration between 4s and 11s
+    //       const durSec = +(Math.random() * 7 + 4).toFixed(2);
+    //       const dur = durSec + 's';
+    //       // Use a negative delay so animations start mid-cycle for immediate effect
+    //       const negDelay = -(Math.random() * durSec).toFixed(2) + 's';
+    //       el.style.setProperty('--flash-dur', dur);
+    //       el.style.setProperty('--flash-delay', negDelay);
+    //     }
+    //   };
+    //   if (document.readyState === 'loading') {
+    //     document.addEventListener('DOMContentLoaded', init, { once: true });
+    //   } else {
+    //     init();
+    //   }
+    // })();
   </script>
 </body>
 </html>
