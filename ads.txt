@@ -1,0 +1,19 @@
+# ads.txt file for splastik.com
+# This file authorizes Google AdSense to serve ads on this domain
+# Format: <Field #1>, <Field #2>, <Field #3>, <Field #4>
+# Field #1: SSP Domain (Supply-Side Platform)
+# Field #2: Publisher's Account ID
+# Field #3: Type of Relationship (DIRECT or RESELLER)
+# Field #4: Certification Authority ID (optional)
+
+# Google AdSense
+google.com, pub-7073488213216152, DIRECT, f08c47fec0942fa0
+
+# Instructions:
+# Replace 'pub-0000000000000000' with your actual Google AdSense Publisher ID
+# You can find your Publisher ID in your AdSense account under Account > Settings > Account information
+# It will look like: pub-1234567890123456
+
+# Additional ad networks can be added below if you use other advertising partners
+# Example for other networks:
+# advertising.com, 12345, RESELLER, 1234567890abcdef
