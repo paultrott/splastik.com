@@ -503,7 +503,7 @@ footer a { color: inherit; }
 
 /* === 8. Social Section ================================================== */
 #social {
-  margin-top: clamp(3.5rem, 7vw, 5.5rem);
+  /* margin-top: clamp(3.5rem, 7vw, 5.5rem); */
 }
 
 #social-header {
