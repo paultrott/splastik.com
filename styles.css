@@ -488,7 +488,7 @@ nav[aria-label="Primary"] a:active { transform: translateY(1px); }
 
 /* === 6. Layout Containers =============================================== */
 main {
-  max-width: 1320px;
+  max-width: 834px;
   margin: 0 auto;
   padding: 2rem 1.5rem 4rem;
 }
