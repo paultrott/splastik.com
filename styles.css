@@ -267,7 +267,7 @@ footer {
 /* === 3. Header / Hero ==================================================== */
 header[role="banner"] {
   position: relative;
-  padding: clamp(2rem, 5vw, 4rem) 1.5rem 2.5rem;
+  padding: 7rem;
   overflow: hidden;
 }
 
