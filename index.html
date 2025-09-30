@@ -389,7 +389,7 @@ I am a disabled independent painter based in Australia, and a single parent of t
       <p class="social-tagline">Interested in my work or want to discuss a project? Contact me via social media.</p>
       <ul class="social-grid" role="list">
         <li class="social-card tiktok" role="listitem">
-          <a class="social-link" href="https://www.tiktok.com/@user6391301338251" target="_blank" rel="me noopener noreferrer" aria-label="Open TikTok profile (opens in a new tab)">
+          <a class="social-link" href="https://www.tiktok.com/@splastik" target="_blank" rel="me noopener noreferrer" aria-label="Open TikTok profile (opens in a new tab)">
             <span class="social-chip" aria-hidden="true">TT</span>
             <span class="social-text">
               <span class="social-name">TikTok</span>
@@ -449,15 +449,19 @@ I am a disabled independent painter based in Australia, and a single parent of t
     // Handle video ready state
     function handleVideoReady(video) {
       const fallbackImg = video.parentElement.querySelector('.logo');
+      // Show fallback image until video is ready to play
       if (video.readyState >= 3) {
         video.classList.add('loaded');
-        return;
-      }
-      fallbackImg.style.opacity = '1';
-      setTimeout(() => {
-        video.classList.add('loaded');
         fallbackImg.classList.add('hide-fallback');
-      }, 100);
+      } else {
+        fallbackImg.style.opacity = '1';
+        // Listen for video 'canplay' event to hide fallback
+        video.addEventListener('canplay', function onCanPlay() {
+          video.classList.add('loaded');
+          fallbackImg.classList.add('hide-fallback');
+          video.removeEventListener('canplay', onCanPlay);
+        });
+      }
     }
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
