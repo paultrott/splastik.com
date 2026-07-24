@@ -52,8 +52,7 @@
 </head>
 <body>
 <img class="brand-logo" src="./brand.png" alt="Splastik Logo" />
-<p class="tagline">speshal toys</p>
-<button type="button" class="sound-toggle" id="soundToggle" aria-pressed="false">🔇 Play sound</button>
+<button type="button" class="sound-toggle" id="soundToggle" aria-pressed="false">🔇 embrace the ambience</button>
 <audio id="bgAudio" src="./glue-slow-reverb.mp3" loop preload="auto" autoplay muted playsinline></audio>
 <script>
   const audio = document.getElementById('bgAudio');
@@ -63,7 +62,7 @@
     audio.muted = nowMuted;
     if (!nowMuted) audio.play().catch(() => {});
     toggle.setAttribute('aria-pressed', String(!nowMuted));
-    toggle.textContent = nowMuted ? '🔇 Play sound' : '🔊 Mute';
+    toggle.textContent = nowMuted ? '🔇  embrace the ambience' : '🔊 mute the ambience';
   });
 </script>
 </body>
