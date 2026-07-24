@@ -34,11 +34,37 @@
       color: #919191;
       text-align: center;
     }
+    .sound-toggle {
+      border: 1px solid #d0d0d0;
+      background: #fff;
+      color: #111418;
+      border-radius: 999px;
+      padding: 0.5rem 1.1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .sound-toggle:hover {
+      background: #f4f4f4;
+    }
 
   </style>
 </head>
 <body>
 <img class="brand-logo" src="./brand.png" alt="Splastik Logo" />
 <p class="tagline">speshal toys</p>
+<button type="button" class="sound-toggle" id="soundToggle" aria-pressed="false">🔇 Play sound</button>
+<audio id="bgAudio" src="./glue-slow-reverb.mp3" loop preload="auto" autoplay muted playsinline></audio>
+<script>
+  const audio = document.getElementById('bgAudio');
+  const toggle = document.getElementById('soundToggle');
+  toggle.addEventListener('click', () => {
+    const nowMuted = !audio.muted;
+    audio.muted = nowMuted;
+    if (!nowMuted) audio.play().catch(() => {});
+    toggle.setAttribute('aria-pressed', String(!nowMuted));
+    toggle.textContent = nowMuted ? '🔇 Play sound' : '🔊 Mute';
+  });
+</script>
 </body>
 </html>
